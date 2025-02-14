@@ -1,0 +1,71 @@
+name: Build & deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # this makes it possible to run workflow manually
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4 # this action downloads our code on server
+
+      - name: Set up NodeJs
+        uses: actions/setup-node@v4 # this action sets up node js on the server machine (runner)
+        with:
+          node-version: 20.11.0
+
+      - name: Install dependencies
+        run: npm ci # this is like npm install but uses the versions specified in package.json
+
+      - name: Run test
+        run: npm test
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.11.0
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install gh-pages package
+        run: npm install gh-pages --save-dev
+
+      - name: Set up Git user for deployment
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@users.noreply.github.com"
+          git config --global credential.helper "store"
+          echo "https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com" > ~/.git-credentials
+
+      - name: Checkout gh-pages branch
+        run: |
+          git fetch origin
+          if git show-ref --verify --quiet refs/heads/gh-pages; then
+            git checkout gh-pages
+          else
+            git checkout -b gh-pages origin/main
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        run: |
+          npm run deploy
+        env:
+          CI: false
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
