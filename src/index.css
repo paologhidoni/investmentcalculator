@@ -1,5 +1,4 @@
-:root {
-}
+@import "tailwindcss";
 
 * {
   margin: 0;
