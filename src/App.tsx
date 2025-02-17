@@ -13,7 +13,7 @@ function App() {
     useState<null | InvestmentParams>(null);
 
   useEffect(() => {
-    console.log(investmentParams);
+    console.log(investmentParams, "investmentParams");
   }, [investmentParams]);
 
   return (
@@ -27,7 +27,6 @@ function App() {
 
           {/* Placeholder for Data (spans both rows vertically) */}
           <div className="col-span-1 row-span-2 p-6 bg-white rounded-lg">
-            <h2 className="font-semibold text-lg mb-4">Investment Data</h2>
             <div className="grid grid-cols-3 gap-4">
               <div className="text-gray-700">Year</div>
               <div className="text-gray-700">Investment</div>
@@ -40,7 +39,6 @@ function App() {
 
           {/* Placeholder for chart */}
           <div className="col-span-1 row-span-1 p-6 bg-gray-100 rounded-lg">
-            <h2 className="font-semibold text-lg mb-4">Investment Chart</h2>
             <div className="bg-gray-300 h-40 rounded-lg"></div>
           </div>
         </main>

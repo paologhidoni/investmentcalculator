@@ -1,5 +1,12 @@
-import React, { useState, Dispatch, SetStateAction } from "react";
+import React, {
+  useState,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+  useRef,
+} from "react";
 import { InvestmentParams } from "../models/InvestmentParams";
+import Input from "./Input";
 
 interface Props {
   onSetInvestmentParams: Dispatch<SetStateAction<InvestmentParams | null>>;
@@ -13,183 +20,166 @@ const Inputform: React.FC<Props> = ({ onSetInvestmentParams }) => {
   const [errors, setErrors] = useState<string[]>([]);
   const [touched, setTouched] = useState<Record<string, boolean>>({});
 
+  const initialInvRef = useRef<HTMLInputElement | null>(null);
+  const annualInvRef = useRef<HTMLInputElement | null>(null);
+  const expectedRetRef = useRef<HTMLInputElement | null>(null);
+  const invDurationRef = useRef<HTMLInputElement | null>(null);
+
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const parsedInitialInvestment = parseInt(initialInvestment);
-    const parsedAnnualInvestment = parseInt(annualInvestment);
-    const parsedExpectedReturn = parseInt(expectedReturn);
-    const parsedInvestmentDuration = parseInt(investmentDuration);
+    if (errors.length === 0 && !isFormIncomplete()) {
+      const parsedInitialInvestment = parseFloat(initialInvestment);
+      const parsedAnnualInvestment = parseFloat(annualInvestment);
+      const parsedExpectedReturn = parseFloat(expectedReturn);
+      const parsedInvestmentDuration = parseFloat(investmentDuration);
 
-    onSetInvestmentParams({
-      initialInv: parsedInitialInvestment,
-      annualInv: parsedAnnualInvestment,
-      expectedReturn: parsedExpectedReturn,
-      invDuration: parsedInvestmentDuration,
-    });
-  };
+      onSetInvestmentParams({
+        initialInv: parsedInitialInvestment,
+        annualInv: parsedAnnualInvestment,
+        expectedReturn: parsedExpectedReturn,
+        invDuration: parsedInvestmentDuration,
+      });
+    }
 
-  const validateInput = (inputId: string, inputValue: string) => {
-    setErrors((prev) => {
-      const parsedInput = parseInt(inputValue);
-      const errors = [...prev];
-
-      if (isNaN(parsedInput) || parsedInput < 0) {
-        if (!errors.includes(inputId)) {
-          errors.push(inputId);
-        }
-      } else {
-        const inputElIndex = errors.indexOf(inputId);
-        if (inputElIndex !== -1) {
-          errors.splice(inputElIndex, 1);
-        }
+    // navigate user to first erroring field if we have errors
+    if (errors.length > 0) {
+      const firstErrorId = errors[0];
+      switch (firstErrorId) {
+        case "initial-investment":
+          initialInvRef.current?.focus();
+          break;
+        case "annual-investment":
+          annualInvRef.current?.focus();
+          break;
+        case "expected-return":
+          expectedRetRef.current?.focus();
+          break;
+        case "investment-duration":
+          invDurationRef.current?.focus();
+          break;
+        default:
+          break;
       }
-      return errors;
-    });
-
-    setTouched((prev) => ({
-      ...prev,
-      [inputId]: true,
-    }));
+    }
   };
+
+  // check if the form is incomplete for styling and validation
+  const isFormIncomplete = (): boolean => {
+    return (
+      !initialInvestment ||
+      !annualInvestment ||
+      !expectedReturn ||
+      !investmentDuration
+    );
+  };
+
+  // keep track of which field has been interacted with
+  const handleBlur = (inputId: string) => {
+    setTouched((prev) => {
+      return { ...prev, [inputId]: true };
+    });
+  };
+
+  // check input value is an invalid number and the field has been interacted with at least once, to give feedback
+  const isInvalidInput = (inputId: string, inputValue: string): boolean => {
+    const parsedInput = parseFloat(inputValue);
+    return touched[inputId] && (isNaN(parsedInput) || parsedInput < 0);
+  };
+
+  // update errors state when the value of an input changes, if it has been interacted with
+  useEffect(() => {
+    const newErrors: string[] = [];
+
+    if (isInvalidInput("initial-investment", initialInvestment))
+      newErrors.push("initial-investment");
+    if (isInvalidInput("annual-investment", annualInvestment))
+      newErrors.push("annual-investment");
+    if (isInvalidInput("expected-return", expectedReturn))
+      newErrors.push("expected-return");
+    if (isInvalidInput("investment-duration", investmentDuration))
+      newErrors.push("investment-duration");
+
+    setErrors(newErrors);
+  }, [
+    initialInvestment,
+    annualInvestment,
+    expectedReturn,
+    investmentDuration,
+    touched,
+  ]);
 
   return (
     <section className="col-span-1 row-span-1 p-6 rounded-lg">
       <form onSubmit={handleFormSubmit} className="space-y-4">
         {/* INITIAL INVESTMENT */}
-        <div className="flex flex-col">
-          <label
-            htmlFor="initial-investment"
-            className="mb-2 text-lg font-semibold"
-          >
-            Initial investment
-          </label>
-
-          <input
-            value={initialInvestment}
-            min="0"
-            onChange={(e) => {
-              setInitialInvestment(e.target.value);
-              validateInput(e.target.id, e.target.value);
-            }}
-            type="number"
-            id="initial-investment"
-            className={`px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
-              errors.includes("initial-investment")
-                ? "border-red-500 focus:ring-red-500"
-                : ""
-            }`}
-          />
-
-          {errors.includes("initial-investment") && (
-            <p className="text-red-500">Please fill in this field.</p>
-          )}
-        </div>
+        <Input
+          id="initial-investment"
+          label="Initial investment"
+          value={initialInvestment}
+          handleValueUpdate={setInitialInvestment}
+          errors={errors}
+          handleBlur={handleBlur}
+          ref={initialInvRef}
+        />
 
         {/* ANNUAL INVESTMENT */}
-        <div className="flex flex-col">
-          <label
-            htmlFor="annual-investment"
-            className="mb-2 text-lg font-semibold"
-          >
-            Annual investment
-          </label>
-
-          <input
-            value={annualInvestment}
-            min="0"
-            onChange={(e) => {
-              setAnnualInvestment(e.target.value);
-              validateInput(e.target.id, e.target.value);
-            }}
-            type="number"
-            id="annual-investment"
-            className={`px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
-              errors.includes("annual-investment")
-                ? "border-red-500 focus:ring-red-500"
-                : ""
-            }`}
-          />
-
-          {errors.includes("annual-investment") && (
-            <p className="text-red-500">Please fill in this field.</p>
-          )}
-        </div>
+        <Input
+          id="annual-investment"
+          label="Annual investment"
+          value={annualInvestment}
+          handleValueUpdate={setAnnualInvestment}
+          errors={errors}
+          handleBlur={handleBlur}
+          ref={annualInvRef}
+        />
 
         {/* EXPECTED RETURN */}
-        <div className="flex flex-col">
-          <label
-            htmlFor="expected-return"
-            className="mb-2 text-lg font-semibold"
-          >
-            Expected return
-          </label>
-
-          <input
-            value={expectedReturn}
-            min="0"
-            onChange={(e) => {
-              setExpectedReturn(e.target.value);
-              validateInput(e.target.id, e.target.value);
-            }}
-            type="number"
-            id="expected-return"
-            className={`px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
-              errors.includes("expected-return")
-                ? "border-red-500 focus:ring-red-500"
-                : ""
-            }`}
-          />
-
-          {errors.includes("expected-return") && (
-            <p className="text-red-500">Please fill in this field.</p>
-          )}
-        </div>
+        <Input
+          id="expected-return"
+          label="Expected return"
+          value={expectedReturn}
+          handleValueUpdate={setExpectedReturn}
+          errors={errors}
+          handleBlur={handleBlur}
+          ref={expectedRetRef}
+        />
 
         {/* INVESTMENT DURATION */}
-        <div className="flex flex-col">
-          <label htmlFor="duration" className="mb-2 text-lg font-semibold">
-            Duration
-          </label>
-          <input
-            value={investmentDuration}
-            min="0"
-            onChange={(e) => {
-              setInvestmentDuration(e.target.value);
-              validateInput(e.target.id, e.target.value);
-            }}
-            type="number"
-            id="duration"
-            className={`px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
-              errors.includes("duration")
-                ? "border-red-500 focus:ring-red-500"
-                : ""
-            }`}
-          />
-          {errors.includes("duration") && (
-            <p className="text-red-500">Please fill in this field.</p>
-          )}{" "}
-        </div>
+        <Input
+          id="investment-duration"
+          label="Investment duration"
+          value={investmentDuration}
+          handleValueUpdate={setInvestmentDuration}
+          errors={errors}
+          handleBlur={handleBlur}
+          ref={invDurationRef}
+        />
 
+        {/* SUBMIT BUTTON */}
         <button
           type="submit"
-          className={`px-6 py-3 mt-4 cursor-pointer bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-gray-400 disabled:text-gray-300 disabled:cursor-not-allowed}`}
-          disabled={
-            errors.length > 0 ||
-            !initialInvestment ||
-            !annualInvestment ||
-            !expectedReturn ||
-            !investmentDuration
+          className={`px-6 py-3 mt-4 font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
+            errors.length > 0 || isFormIncomplete()
+              ? "bg-gray-600 hover:bg-gray-700 text-gray-200 cursor-not-allowed"
+              : " bg-indigo-600 hover:bg-indigo-700 text-white cursor-pointer"
+          } }`}
+          tabIndex={0}
+          aria-disabled={errors.length > 0 || isFormIncomplete()}
+          aria-label={
+            errors.length > 0
+              ? "Submit, button disabled due to invalid input"
+              : isFormIncomplete()
+              ? "Submit, button disabled - all fields are required"
+              : "Submit investment calculation form"
           }
         >
           Submit
         </button>
+
         {(errors.length > 0 ||
-          (Object.keys(touched).length === 4 && // Ensure all fields are touched
-            (!initialInvestment ||
-              !annualInvestment ||
-              !expectedReturn ||
-              !investmentDuration))) && (
+          (Object.keys(touched).length === 4 && // Ensure all fields have been interacted with before giving fedback
+            isFormIncomplete())) && (
           <p className="text-red-500">Please fill in all fields.</p>
         )}
       </form>
