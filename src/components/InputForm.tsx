@@ -9,6 +9,8 @@ import React, {
 /* models */
 import { InvestmentParams } from "../models/InvestmentParams";
 import { InvestmentResults } from "../models/InvestmentResults";
+import { Currency } from "../models/Currency";
+import { HandleValueUpdate } from "../models/HandleValueUpdate";
 
 /* components */
 import Input from "./Input";
@@ -16,11 +18,17 @@ import Input from "./Input";
 interface Props {
   onSetInvestmentParams: Dispatch<SetStateAction<InvestmentParams | null>>;
   resetInvestmentResults: Dispatch<SetStateAction<InvestmentResults | null>>;
+  currency: keyof typeof Currency;
+  setCurrency: Dispatch<SetStateAction<keyof typeof Currency>>;
 }
+
+const currencies = Object.values(Currency);
 
 const Inputform: React.FC<Props> = ({
   onSetInvestmentParams,
   resetInvestmentResults,
+  currency,
+  setCurrency,
 }) => {
   const [initialInvestment, setInitialInvestment] = useState<string>("");
   const [annualInvestment, setAnnualInvestment] = useState<string>("");
@@ -48,6 +56,7 @@ const Inputform: React.FC<Props> = ({
         annualInv: parsedAnnualInvestment,
         expectedReturn: parsedExpectedReturn,
         invDuration: parsedInvestmentDuration,
+        currency,
       });
     }
 
@@ -103,6 +112,7 @@ const Inputform: React.FC<Props> = ({
     setInvestmentDuration("");
     setErrors([]);
     setTouched({});
+    setCurrency(Currency.USD);
     resetInvestmentResults(null);
   };
 
@@ -156,7 +166,7 @@ const Inputform: React.FC<Props> = ({
         {/* EXPECTED RETURN */}
         <Input
           id="expected-return"
-          label="Expected % return"
+          label="Expected yearly return (%)"
           value={expectedReturn}
           handleValueUpdate={setExpectedReturn}
           errors={errors}
@@ -174,6 +184,18 @@ const Inputform: React.FC<Props> = ({
           handleBlur={handleBlur}
           ref={invDurationRef}
         />
+
+        {/* CURRENCY SELECTOR */}
+        <Input
+          type="select"
+          id="currency"
+          label="Currency"
+          value={currency}
+          handleValueUpdate={setCurrency as HandleValueUpdate}
+          errors={errors}
+          handleBlur={handleBlur}
+          options={currencies}
+        ></Input>
 
         <div className="flex flex-wrap justify-between">
           {/* SUBMIT BUTTON */}
@@ -201,6 +223,7 @@ const Inputform: React.FC<Props> = ({
           <button
             onClick={resetForm}
             className={`px-6 py-3 mt-4 font-semibold rounded-md bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 hover:bg-red-700 cursor-pointer`}
+            aria-label="Reset form"
           >
             Reset
           </button>

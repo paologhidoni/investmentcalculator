@@ -1,7 +1,7 @@
 export interface YearlyProjection {
   id: string;
   year: number;
-  yearlyInvestment: string;
-  investmentTotal: string;
-  returns: string;
+  yearlyInvestment: number;
+  investmentTotal: number;
+  returns: number;
 }

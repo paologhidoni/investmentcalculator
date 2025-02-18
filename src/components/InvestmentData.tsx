@@ -1,5 +1,6 @@
 import React from "react";
 import { GrMoney } from "react-icons/gr";
+import { formatCurrency } from "../util";
 
 /* components */
 import FinalResults from "./FinalResults";
@@ -17,7 +18,7 @@ const InvestmentData: React.FC<Props> = ({ investmentResults }) => {
       {!investmentResults && (
         <div className="text-center text-(--secondary-color)">
           <GrMoney
-            className="text-8xl inline mt-12"
+            className="text-8xl inline my-12"
             aria-label="Investment results will be displayed here, once the form is submitted."
           />
         </div>
@@ -40,9 +41,21 @@ const InvestmentData: React.FC<Props> = ({ investmentResults }) => {
               {investmentResults.yearsProjection.map((entry) => (
                 <React.Fragment key={entry.id}>
                   <div className="font-medium italic">{entry.year}</div>
-                  <div>{entry.yearlyInvestment}</div>
-                  <div>{entry.returns}</div>
-                  <div>{entry.investmentTotal}</div>
+                  <div>
+                    {formatCurrency(
+                      entry.yearlyInvestment,
+                      investmentResults.currency
+                    )}
+                  </div>
+                  <div>
+                    {formatCurrency(entry.returns, investmentResults.currency)}
+                  </div>
+                  <div>
+                    {formatCurrency(
+                      entry.investmentTotal,
+                      investmentResults.currency
+                    )}
+                  </div>
                 </React.Fragment>
               ))}
             </div>

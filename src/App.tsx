@@ -6,11 +6,14 @@ import { v4 as uuidv4 } from "uuid";
 import Header from "./components/Header";
 import Inputform from "./components/InputForm";
 import InvestmentData from "./components/InvestmentData";
+import InvestmentChart from "./components/InvestmentChart";
+import Footer from "./components/Footer";
 
 /* models */
 import { InvestmentParams } from "./models/InvestmentParams";
 import { InvestmentResults } from "./models/InvestmentResults";
 import { YearlyProjection } from "./models/YearlyProjection";
+import { Currency } from "./models/Currency";
 
 /* utils */
 import { formatCurrency } from "./util";
@@ -20,6 +23,7 @@ function App() {
     useState<null | InvestmentParams>(null);
   const [investmentResults, setInvestmentResults] =
     useState<InvestmentResults | null>(null);
+  const [currency, setCurrency] = useState<keyof typeof Currency>(Currency.USD);
 
   const calculateProjection = (investmentParams: InvestmentParams) => {
     const { initialInv, annualInv, expectedReturn, invDuration } =
@@ -38,18 +42,19 @@ function App() {
       yearlyProjections.push({
         id: uuidv4(),
         year: new Date().getUTCFullYear() + year,
-        yearlyInvestment: formatCurrency(annualInv),
-        returns: formatCurrency(yearlyReturn),
-        investmentTotal: formatCurrency(investmentTotal),
+        yearlyInvestment: annualInv,
+        returns: yearlyReturn,
+        investmentTotal: investmentTotal,
       });
     }
 
     setInvestmentResults({
-      initialInvestment: formatCurrency(initialInv),
+      initialInvestment: formatCurrency(initialInv, currency),
       yearsProjection: yearlyProjections,
-      totalContributions: formatCurrency(userContribution),
-      totalReturns: formatCurrency(totalReturns),
-      finalInvestmentValue: formatCurrency(investmentTotal),
+      totalContributions: formatCurrency(userContribution, currency),
+      totalReturns: formatCurrency(totalReturns, currency),
+      finalInvestmentValue: formatCurrency(investmentTotal, currency),
+      currency: currency as keyof typeof Currency,
     });
   };
 
@@ -68,23 +73,31 @@ function App() {
       <Header />
 
       <div className="px-4 bg-(--secondary-color) min-h-screen text-white">
-        <main className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 md:max-w-5xl mx-auto py-6 gap-6">
+        <main className="grid grid-cols-1 md:grid-cols-2 md:max-w-5xl mx-auto pt-6 pb-22 gap-6">
           <div className="flex flex-col gap-6">
             {/* Input Form */}
             <Inputform
               onSetInvestmentParams={setInvestmentParams}
               resetInvestmentResults={resetInvestmentResults}
+              currency={currency as keyof typeof Currency}
+              setCurrency={setCurrency}
             />
 
             {/* Placeholder for chart */}
-            <div className="p-2 md:p-6 bg-gray-100 rounded-lg">
-              <div className="bg-gray-300 h-40 rounded-lg"></div>
-            </div>
+            <InvestmentChart
+              investmentResults={investmentResults}
+              currency={
+                (investmentParams?.currency as keyof typeof Currency) ||
+                Currency.USD
+              }
+            />
           </div>
 
           {/* Ivestment Data */}
           <InvestmentData investmentResults={investmentResults} />
         </main>
+
+        <Footer />
       </div>
     </>
   );
