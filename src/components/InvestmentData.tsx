@@ -37,7 +37,7 @@ const InvestmentData: React.FC<Props> = ({ investmentResults }) => {
               <h3 className="font-bold">Tot Investment</h3>
 
               {/* Data Rows */}
-              {investmentResults.yearsProjection.map((entry, index) => (
+              {investmentResults.yearsProjection.map((entry) => (
                 <React.Fragment key={entry.id}>
                   <div className="font-medium italic">{entry.year}</div>
                   <div>{entry.yearlyInvestment}</div>
