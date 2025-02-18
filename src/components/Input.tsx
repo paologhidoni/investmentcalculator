@@ -22,7 +22,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
       handleValueUpdate,
       errors = [],
       handleBlur,
-      type = "text",
+      type = "number",
       options,
     },
     ref
