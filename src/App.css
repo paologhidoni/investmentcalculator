@@ -1,4 +1,6 @@
 :root {
   --primary-color: rgb(167, 223, 184);
+  --primary-color_t2: rgb(93, 197, 125);
   --secondary-color: rgb(87, 29, 128);
+  --tertiary-color: rgb(247, 157, 22);
 }
