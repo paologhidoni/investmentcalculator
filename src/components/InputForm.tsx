@@ -5,7 +5,11 @@ import React, {
   SetStateAction,
   useRef,
 } from "react";
+
+/* models */
 import { InvestmentParams } from "../models/InvestmentParams";
+
+/* components */
 import Input from "./Input";
 
 interface Props {
