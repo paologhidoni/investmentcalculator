@@ -45,12 +45,16 @@ function App() {
     }
 
     setInvestmentResults({
-      initialInvestment: initialInv,
+      initialInvestment: formatCurrency(initialInv),
       yearsProjection: yearlyProjections,
-      totalContributions: userContribution,
-      totalReturns: totalReturns,
-      finalInvestmentValue: investmentTotal,
+      totalContributions: formatCurrency(userContribution),
+      totalReturns: formatCurrency(totalReturns),
+      finalInvestmentValue: formatCurrency(investmentTotal),
     });
+  };
+
+  const resetInvestmentResults = () => {
+    setInvestmentResults(null);
   };
 
   useEffect(() => {
@@ -64,17 +68,22 @@ function App() {
       <Header />
 
       <div className="px-4 bg-(--secondary-color) min-h-screen text-white">
-        <main className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 md:max-w-5xl mx-auto py-6  gap-6">
-          {/* Input Form */}
-          <Inputform onSetInvestmentParams={setInvestmentParams} />
+        <main className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 md:max-w-5xl mx-auto py-6 gap-6">
+          <div className="flex flex-col gap-6">
+            {/* Input Form */}
+            <Inputform
+              onSetInvestmentParams={setInvestmentParams}
+              resetInvestmentResults={resetInvestmentResults}
+            />
 
-          {/* Placeholder for Data (spans both rows vertically) */}
-          <InvestmentData investmentResults={investmentResults} />
-
-          {/* Placeholder for chart */}
-          <div className="p-6 bg-gray-100 rounded-lg">
-            <div className="bg-gray-300 h-40 rounded-lg"></div>
+            {/* Placeholder for chart */}
+            <div className="p-2 md:p-6 bg-gray-100 rounded-lg">
+              <div className="bg-gray-300 h-40 rounded-lg"></div>
+            </div>
           </div>
+
+          {/* Ivestment Data */}
+          <InvestmentData investmentResults={investmentResults} />
         </main>
       </div>
     </>
