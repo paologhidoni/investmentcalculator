@@ -175,7 +175,7 @@ const Inputform: React.FC<Props> = ({
           ref={invDurationRef}
         />
 
-        <div className="flex justify-between">
+        <div className="flex flex-wrap justify-between">
           {/* SUBMIT BUTTON */}
           <button
             type="submit"
@@ -197,12 +197,6 @@ const Inputform: React.FC<Props> = ({
             Submit
           </button>
 
-          {(errors.length > 0 ||
-            (Object.keys(touched).length === 4 && // Ensure all fields have been interacted with before giving fedback
-              isFormIncomplete())) && (
-            <p className="text-red-500">Please fill in all fields.</p>
-          )}
-
           {/* CLEAR BUTTON */}
           <button
             onClick={resetForm}
@@ -211,6 +205,12 @@ const Inputform: React.FC<Props> = ({
             Reset
           </button>
         </div>
+
+        {(errors.length > 0 ||
+          (Object.keys(touched).length === 4 && // Ensure all fields have been interacted with before giving fedback
+            isFormIncomplete())) && (
+          <p className="text-red-500">Please fill in all fields.</p>
+        )}
       </form>
     </section>
   );
