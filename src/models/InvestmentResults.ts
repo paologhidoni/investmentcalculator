@@ -1,9 +1,9 @@
 import { YearlyProjection } from "./YearlyProjection";
 
 export interface InvestmentResults {
-  initialInvestment: number;
+  initialInvestment: string;
   yearsProjection: YearlyProjection[];
-  totalContributions: number; // tracks only what the user invested over time
-  totalReturns: number;
-  finalInvestmentValue: number;
+  totalContributions: string; // tracks only what the user invested over time
+  totalReturns: string;
+  finalInvestmentValue: string;
 }
