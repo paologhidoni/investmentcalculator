@@ -1,6 +1,6 @@
 # INVESTMENT CALCULATOR
 
-An interactive **Investment Calculator** built with **React + TypeScript**, allowing users to visualize the growth of their investments over time with dynamic charts. [🚀 Live Demo: Investment Calculator ](https://paologhidoni.github.io/investmentcalculator/)
+An interactive **Investment Calculator** built with **React + TypeScript**, allowing users to visualize the growth of their investments over time with dynamic charts. <a href="https://paologhidoni.github.io/investmentcalculator/" target="_blank">🚀 Live Demo: Investment Calculator</a>
 
 <img src="./public/investmentcalculator.png" alt="Investment Calculator Preview"/>
 
