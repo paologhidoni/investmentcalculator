@@ -6,19 +6,18 @@ An interactive **Investment Calculator** built with **React + TypeScript**, allo
 
 ## 🚀 Features
 
-- 📊 **Interactive Chart** – Visualize investment growth over time using Recharts.
-- 🎯 **User Input Form** – Enter **initial investment**, **annual contributions**, **expected growth rate**, and **duration**.
+- 👥 **User Input Form** – Enter **initial investment**, **annual contributions**, **expected growth rate**, and **duration**.
 - 📉 **Year-to-Year Investment Breakdown** – Displays:
   - **Year** – Each investment year is listed sequentially.
   - **Annual Investment** – Contributions made for each year.
   - **Returns** – The yearly profit from compounded interest.
   - **Total Investment** – The cumulative value over time.
-- 📉 **Dynamic Line Graph** – Displays:
+- 📊 **Interactive Chart** – Visualize investment growth over time using Recharts. Displays:
   - **Total Investment** (cumulative value over time)
   - **Annual Investment** (yearly contributions)
   - **Annual Return Growth** (compounded interest/profit)
-- 🔍 **Custom Legend** – Toggle different investment metrics in the graph.
-- 💾 **Currency Formatting** – Supports multiple currencies with proper formatting.
+- 📋 **Custom Legend** – Toggle different investment metrics in the graph.
+- 💲 **Currency Formatting** – Supports multiple currencies with proper formatting.
 
 ## 🛠️ Tech Stack
 
@@ -48,7 +47,7 @@ An interactive **Investment Calculator** built with **React + TypeScript**, allo
    npm run dev
    ```
 
-## Goals:
+## 🎯 Goals:
 
 - [x] Build an accessible responsive form for the user to interact with the investment calculator.
 - [x] Display the calculated data, year by year.
