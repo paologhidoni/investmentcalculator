@@ -24,7 +24,7 @@ const InvestmentData: React.FC<Props> = ({ investmentResults }) => {
         </div>
       )}
 
-      {investmentResults?.yearsProjection.length && (
+      {investmentResults && investmentResults.yearsProjection.length > 0 && (
         <>
           <FinalResults investmentResults={investmentResults} />
 
