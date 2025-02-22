@@ -1,7 +1,7 @@
 export interface InvestmentParams {
-  initialInv: number;
-  annualInv: number;
-  expectedReturn: number;
-  invDuration: number;
-  currency: string;
+  initialInvestment: string;
+  annualInvestment: string;
+  expectedReturn: string;
+  investmentDuration: string;
+  investmentCurrency: string;
 }
