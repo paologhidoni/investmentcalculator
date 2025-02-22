@@ -1,16 +1,19 @@
 import { forwardRef } from "react";
+
+/* models */
 import { Currency } from "../models/Currency";
-import { HandleValueUpdate } from "../models/HandleValueUpdate";
+import { OnHandleChangeParams } from "../models/OnHandleChangeParams";
 
 interface Props {
   id: string;
   label: string;
-  value: string;
-  handleValueUpdate: HandleValueUpdate;
+  value: number | string;
+  onHandleChange: OnHandleChangeParams;
   errors: string[];
   handleBlur: (id: string) => void;
-  type?: string;
+  type?: "number" | "select";
   options?: string[];
+  step?: string;
 }
 
 const Input = forwardRef<HTMLInputElement, Props>(
@@ -19,11 +22,12 @@ const Input = forwardRef<HTMLInputElement, Props>(
       id,
       label,
       value,
-      handleValueUpdate,
+      onHandleChange,
       errors = [],
       handleBlur,
       type = "number",
       options,
+      step = "any",
     },
     ref
   ) => {
@@ -40,7 +44,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
             value={value}
             onBlur={() => handleBlur(id)}
             onChange={(e) =>
-              handleValueUpdate(e.target.value as keyof typeof Currency)
+              onHandleChange(id, e.target.value as keyof typeof Currency)
             }
             className={
               "px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 h-[45px]"
@@ -60,13 +64,9 @@ const Input = forwardRef<HTMLInputElement, Props>(
             ref={ref}
             value={value}
             onBlur={() => handleBlur(id)}
-            onChange={(e) =>
-              type === "select"
-                ? handleValueUpdate(e.target.value as keyof typeof Currency)
-                : handleValueUpdate(e.target.value)
-            }
-            type={type === "number" ? "number" : "text"}
-            step="any"
+            onChange={(e) => onHandleChange(id, e.target.value)}
+            type={type}
+            step={step}
             min="0"
             className={`px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 h-[45px] ${
               errors.includes(id) ? "border-red-500 focus:ring-red-500" : ""

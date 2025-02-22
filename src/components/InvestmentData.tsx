@@ -15,7 +15,7 @@ interface Props {
 const InvestmentData: React.FC<Props> = ({ investmentResults }) => {
   return (
     <section className="p-2 md:p-6 bg-gray-100 rounded-lg text-gray-700 ">
-      {!investmentResults && (
+      {!investmentResults?.yearsProjection.length && (
         <div className="text-center text-(--secondary-color)">
           <GrMoney
             className="text-8xl inline my-12"
@@ -24,7 +24,7 @@ const InvestmentData: React.FC<Props> = ({ investmentResults }) => {
         </div>
       )}
 
-      {investmentResults && (
+      {investmentResults?.yearsProjection.length && (
         <>
           <FinalResults investmentResults={investmentResults} />
 
