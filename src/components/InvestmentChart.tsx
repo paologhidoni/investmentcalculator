@@ -71,7 +71,7 @@ const InvestmentChart: React.FC<Props> = ({ investmentResults, currency }) => {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="year" tick={{ dy: 10 }} />
             <YAxis
-              tick={{ dx: -10 }}
+              tick={{ dx: -5 }}
               tickFormatter={(value) => {
                 if (value >= 1_000_000) {
                   return `${currencySymbol}${
