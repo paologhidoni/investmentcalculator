@@ -1,18 +1,15 @@
 import { useState } from "react";
 import "./App.css";
-
 /* components */
 import Header from "./components/Header";
 import InputForm from "./components/InputForm";
 import InvestmentData from "./components/InvestmentData";
 import InvestmentChart from "./components/InvestmentChart";
 import Footer from "./components/Footer";
-
 /* models */
 import { InvestmentParams } from "./models/InvestmentParams";
 import { InvestmentResults } from "./models/InvestmentResults";
 import { Currency } from "./models/Currency";
-
 /* utils */
 import { initialFormState } from "./util";
 

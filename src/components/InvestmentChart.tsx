@@ -12,10 +12,8 @@ import {
 import { FaChartArea } from "react-icons/fa";
 import { InvestmentResults } from "../models/InvestmentResults";
 import { formatCurrency } from "../util";
-
 /* models */
 import { Currency, CurrencySymbol } from "../models/Currency";
-
 /* Import RenderLegend */
 import RenderLegend from "./RenderLegend";
 

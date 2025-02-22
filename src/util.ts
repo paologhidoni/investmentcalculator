@@ -14,25 +14,6 @@ export const formatCurrency = (num: number, currency = "GBP"): string => {
   return symbol + "\u00A0" + value; // \u00A0 is the non-breaking space
 };
 
-// check if the form is incomplete for styling and validation
-export const isFormIncomplete = (formState: InvestmentParams): boolean => {
-  return (
-    !formState.initialInvestment ||
-    !formState.annualInvestment ||
-    !formState.expectedReturn ||
-    !formState.investmentDuration
-  );
-};
-
-// check input value is an invalid number and the field has been interacted with at least once, to give feedback
-export const isInvalidInput = (
-  inputId: string,
-  inputValue: string,
-  touched: Record<string, boolean>
-): boolean => {
-  return touched[inputId] && (parseFloat(inputValue) < 0 || inputValue === "");
-};
-
 export const initialFormState: InvestmentParams = {
   initialInvestment: "0",
   annualInvestment: "0",
