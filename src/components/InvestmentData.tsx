@@ -1,10 +1,8 @@
 import React from "react";
 import { GrMoney } from "react-icons/gr";
 import { formatCurrency } from "../util";
-
 /* components */
 import FinalResults from "./FinalResults";
-
 /* models */
 import { InvestmentResults } from "../models/InvestmentResults";
 

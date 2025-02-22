@@ -6,26 +6,24 @@ import React, {
   useRef,
 } from "react";
 import { v4 as uuidv4 } from "uuid";
-
 /* components */
 import Input from "./Input";
-
+import FormButtons from "./FormButtons";
 /* models */
 import { InvestmentParams } from "../models/InvestmentParams";
 import { InvestmentResults } from "../models/InvestmentResults";
 import { Currency } from "../models/Currency";
 import { OnHandleChangeParams } from "../models/OnHandleChangeParams";
 import { YearlyProjection } from "../models/YearlyProjection";
-
-/* utils */
-import {
-  initialFormState,
-  isFormIncomplete,
-  isInvalidInput,
-  formatCurrency,
-} from "../util";
-
 import { currencies } from "../models/Currency";
+/* utils */
+import { initialFormState, formatCurrency } from "../util";
+/* fields validation */
+import {
+  isInvalidInput,
+  isFormIncomplete,
+  isInvestmentDurationInvalid,
+} from "../validation";
 
 interface Props {
   formState: InvestmentParams;
@@ -48,6 +46,9 @@ const InputForm: React.FC<Props> = ({
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setTouched((prev) => {
+      return { ...prev, ["submit-btn"]: true };
+    });
 
     if (errors.length === 0 && !isFormIncomplete(formState)) {
       const parsedInitialInvestment = parseFloat(formState.initialInvestment);
@@ -149,31 +150,33 @@ const InputForm: React.FC<Props> = ({
     setInvestmentResults(null);
   };
 
-  // update errors state when the value of an input changes, if it has been interacted with
-  useEffect(() => {
+  const checkValidation = () => {
     const newErrors: string[] = [];
 
     if (
-      isInvalidInput("initial-investment", formState.initialInvestment, touched)
+      isInvalidInput(formState.initialInvestment, touched["initial-investment"])
     )
       newErrors.push("initial-investment");
     if (
-      isInvalidInput("annual-investment", formState.annualInvestment, touched)
+      isInvalidInput(formState.annualInvestment, touched["annual-investment"])
     )
       newErrors.push("annual-investment");
-    if (isInvalidInput("expected-return", formState.expectedReturn, touched))
+    if (isInvalidInput(formState.expectedReturn, touched["expected-return"]))
       newErrors.push("expected-return");
     if (
-      isInvalidInput(
-        "investment-duration",
+      isInvestmentDurationInvalid(
         formState.investmentDuration,
-        touched
-      ) ||
-      !Number.isInteger(parseFloat(formState.investmentDuration))
+        touched["investment-duration"]
+      )
     )
       newErrors.push("investment-duration");
 
     setErrors(newErrors);
+  };
+
+  // update errors state when the value of an input changes, if it has been interacted with
+  useEffect(() => {
+    checkValidation();
   }, [formState, touched]);
 
   return (
@@ -187,7 +190,9 @@ const InputForm: React.FC<Props> = ({
           onHandleChange={handleChange}
           errors={errors}
           handleBlur={handleBlur}
+          touched={touched}
           ref={initialInvRef}
+          validationFunc={isInvalidInput}
         />
 
         {/* ANNUAL INVESTMENT */}
@@ -198,7 +203,9 @@ const InputForm: React.FC<Props> = ({
           onHandleChange={handleChange}
           errors={errors}
           handleBlur={handleBlur}
+          touched={touched}
           ref={annualInvRef}
+          validationFunc={isInvalidInput}
         />
 
         {/* EXPECTED RETURN */}
@@ -209,7 +216,9 @@ const InputForm: React.FC<Props> = ({
           onHandleChange={handleChange}
           errors={errors}
           handleBlur={handleBlur}
+          touched={touched}
           ref={expectedRetRef}
+          validationFunc={isInvalidInput}
         />
 
         {/* INVESTMENT DURATION */}
@@ -220,8 +229,10 @@ const InputForm: React.FC<Props> = ({
           onHandleChange={handleChange}
           errors={errors}
           handleBlur={handleBlur}
+          touched={touched}
           ref={invDurationRef}
           step={"1"}
+          validationFunc={isInvestmentDurationInvalid}
         />
 
         {/* CURRENCY SELECTOR */}
@@ -236,43 +247,13 @@ const InputForm: React.FC<Props> = ({
           options={currencies}
         ></Input>
 
-        <div className="flex flex-wrap justify-between">
-          {/* SUBMIT BUTTON */}
-          <button
-            type="submit"
-            className={`px-6 py-3 mt-4 font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
-              errors.length > 0 || isFormIncomplete(formState)
-                ? "bg-gray-600 hover:bg-gray-700 text-gray-200 cursor-not-allowed"
-                : " bg-indigo-600 hover:bg-indigo-700 text-white cursor-pointer"
-            } }`}
-            tabIndex={0}
-            aria-disabled={errors.length > 0 || isFormIncomplete(formState)}
-            aria-label={
-              errors.length > 0
-                ? "Submit, button disabled due to invalid input"
-                : isFormIncomplete(formState)
-                ? "Submit, button disabled - all fields are required"
-                : "Submit investment calculation form"
-            }
-          >
-            Submit
-          </button>
-
-          {/* CLEAR BUTTON */}
-          <button
-            onClick={resetForm}
-            className={`px-6 py-3 mt-4 font-semibold rounded-md bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 hover:bg-red-700 cursor-pointer`}
-            aria-label="Reset form"
-          >
-            Reset
-          </button>
-        </div>
-
-        {(errors.length > 0 ||
-          (Object.keys(touched).length === 4 && // Ensure all fields have been interacted with before giving fedback
-            isFormIncomplete(formState))) && (
-          <p className="text-red-500">Please fill in all fields.</p>
-        )}
+        {/* FORM BUTTONS */}
+        <FormButtons
+          formState={formState}
+          errors={errors}
+          touched={touched}
+          onResetForm={resetForm}
+        />
       </form>
     </section>
   );

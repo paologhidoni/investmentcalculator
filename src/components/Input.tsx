@@ -1,5 +1,4 @@
 import { forwardRef } from "react";
-
 /* models */
 import { Currency } from "../models/Currency";
 import { OnHandleChangeParams } from "../models/OnHandleChangeParams";
@@ -7,13 +6,15 @@ import { OnHandleChangeParams } from "../models/OnHandleChangeParams";
 interface Props {
   id: string;
   label: string;
-  value: number | string;
+  value: string;
   onHandleChange: OnHandleChangeParams;
   errors: string[];
   handleBlur: (id: string) => void;
+  touched?: Record<string, boolean>;
   type?: "number" | "select";
   options?: string[];
   step?: string;
+  validationFunc?: (inputValue: string, touched: boolean) => string | null;
 }
 
 const Input = forwardRef<HTMLInputElement, Props>(
@@ -25,12 +26,18 @@ const Input = forwardRef<HTMLInputElement, Props>(
       onHandleChange,
       errors = [],
       handleBlur,
+      touched,
       type = "number",
       options,
       step = "any",
+      validationFunc = null,
     },
     ref
   ) => {
+    const validationError = validationFunc
+      ? validationFunc(value, touched ? touched[id] : false)
+      : null;
+
     return (
       <div className="flex flex-col">
         <label htmlFor={id} className="mb-2 text-lg font-semibold">
@@ -59,7 +66,6 @@ const Input = forwardRef<HTMLInputElement, Props>(
           </select>
         ) : (
           <input
-            required
             id={id}
             ref={ref}
             value={value}
@@ -75,9 +81,13 @@ const Input = forwardRef<HTMLInputElement, Props>(
           />
         )}
 
-        {errors.includes(id) && (
-          <p id={`${id}-error`} className="text-red-500" aria-live="assertive">
-            Please fill in this field.
+        {validationError !== null && (
+          <p
+            id={`${id}-error`}
+            className="text-red-500 rounded-lg py-2 px-2 mt-1 bg-[rgba(0,0,0,0.5)] text-center font-medium text-lg"
+            aria-live="assertive"
+          >
+            {validationError}
           </p>
         )}
       </div>
