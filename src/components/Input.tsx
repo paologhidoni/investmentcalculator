@@ -55,6 +55,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
           </select>
         ) : (
           <input
+            required
             id={id}
             ref={ref}
             value={value}
