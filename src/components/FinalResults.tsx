@@ -1,5 +1,4 @@
 import React from "react";
-
 /* models */
 import { InvestmentResults } from "../models/InvestmentResults";
 
