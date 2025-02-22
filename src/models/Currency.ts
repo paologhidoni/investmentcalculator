@@ -44,4 +44,4 @@ export enum CurrencySymbol {
   TRY = "₺", // Turkish Lira
 }
 
-export default CurrencySymbol;
+export const currencies = Object.values(Currency);
