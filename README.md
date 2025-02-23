@@ -59,6 +59,27 @@ This achievement reflects:
    npm run dev
    ```
 
+## Investment Projection Breakdown
+
+Below is an example of how the investment projection is calculated and displayed:
+
+| Year | Investment for the Year             | Return for the Year | Total Investment at Year-End |
+| ---- | ----------------------------------- | ------------------- | ---------------------------- |
+| 2026 | Initial + Annual Contribution       | Calculated Return   | Updated Total                |
+| 2027 | Updated Total + Annual Contribution | Calculated Return   | Updated Total                |
+| 2028 | Updated Total + Annual Contribution | Calculated Return   | Updated Total                |
+| 2029 | Updated Total + Annual Contribution | Calculated Return   | Updated Total                |
+| 2030 | Updated Total + Annual Contribution | Calculated Return   | Updated Total                |
+
+### Explanation of Columns:
+
+- **Year**: The year of the projection.
+- **Investment for the Year**: The total amount invested in that year (initial investment plus annual contributions).
+- **Return for the Year**: The calculated return for that year, based on the total investment and expected return rate.
+- **Total Investment at Year-End**: The total investment at the end of the year, including the initial investment, annual contributions, and the returns.
+
+This breakdown helps you track how your investment grows over time and understand the impact of both contributions and returns.
+
 ## 🎯 Goals:
 
 - [x] Build an accessible responsive form for the user to interact with the investment calculator.

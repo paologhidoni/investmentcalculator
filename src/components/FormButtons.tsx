@@ -8,7 +8,7 @@ interface Props {
   formState: InvestmentParams;
   touched: Record<string, boolean>;
   errors: string[];
-  onResetForm: () => void;
+  onResetForm: (e: React.MouseEvent<HTMLButtonElement>) => void;
   hasSubmitted: boolean;
 }
 
@@ -23,7 +23,7 @@ const FormButtons: React.FC<Props> = ({
 
   return (
     <>
-      <div className="flex flex-wrap justify-between">
+      <div className="flex flex-wrap justify-center md:justify-end gap-4">
         {/* SUBMIT BUTTON */}
         <button
           type="submit"
@@ -58,17 +58,19 @@ const FormButtons: React.FC<Props> = ({
         </button>
       </div>
 
-      {/* ERROR HANDLING */}
-      {(hasSubmitted || Object.keys(touched).length === 4) &&
-        (errors.length > 0 || isFormIncomplete(formState)) && (
-          <p className="text-red-500 rounded-lg py-2 px-2 mt-1 bg-[rgba(0,0,0,0.7)] text-center font-medium text-lg">
-            Please correctly fill in all fields
-          </p>
-        )}
+      <div className="col-span-1 md:col-span-2">
+        {/* ERROR HANDLING */}
+        {(hasSubmitted || Object.keys(touched).length === 4) &&
+          (errors.length > 0 || isFormIncomplete(formState)) && (
+            <p className="text-red-500 rounded-lg py-2 px-2 mt-1 bg-[rgba(0,0,0,0.7)] text-center font-medium text-lg">
+              Please correctly fill in all fields
+            </p>
+          )}
 
-      {hasSubmitted && !changesWereMade() && !isFormIncomplete(formState) && (
-        <p>Please update your selections before submitting again</p>
-      )}
+        {hasSubmitted && !changesWereMade() && !isFormIncomplete(formState) && (
+          <p>Please update your selections before submitting again</p>
+        )}
+      </div>
     </>
   );
 };

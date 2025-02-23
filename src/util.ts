@@ -21,3 +21,18 @@ export const initialFormState: InvestmentParams = {
   investmentDuration: "0",
   investmentCurrency: "USD",
 };
+
+export const navigate = (
+  targetRef: React.RefObject<HTMLElement | HTMLInputElement | null>,
+  timeout: number = 100,
+  behavior: ScrollBehavior = "smooth"
+): void => {
+  setTimeout(() => {
+    if (targetRef.current && targetRef.current.offsetHeight > 0) {
+      window.scrollTo({
+        top: targetRef.current.offsetTop,
+        behavior: behavior,
+      });
+    }
+  }, timeout);
+};
