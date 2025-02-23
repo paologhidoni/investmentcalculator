@@ -19,10 +19,9 @@ import RenderLegend from "./RenderLegend";
 
 interface Props {
   investmentResults: InvestmentResults | null;
-  currency: keyof typeof Currency;
 }
 
-const InvestmentChart: React.FC<Props> = ({ investmentResults, currency }) => {
+const InvestmentChart: React.FC<Props> = ({ investmentResults }) => {
   const [chartData, setChartData] = useState<any[]>([]);
   const [hiddenLines, setHiddenLines] = useState<Record<string, boolean>>({
     investmentTotal: false,
@@ -30,8 +29,10 @@ const InvestmentChart: React.FC<Props> = ({ investmentResults, currency }) => {
     returns: false,
   });
 
-  // Get the symbol from the enum using the currency prop
-  const currencySymbol = CurrencySymbol[currency];
+  // Get the currency symbol
+  const currencySymbol = investmentResults
+    ? CurrencySymbol[investmentResults.currency]
+    : CurrencySymbol[Currency.USD];
 
   useEffect(() => {
     if (investmentResults) {
@@ -89,7 +90,10 @@ const InvestmentChart: React.FC<Props> = ({ investmentResults, currency }) => {
             />
             <Tooltip
               formatter={(value) => {
-                return formatCurrency(value as number, currency);
+                return formatCurrency(
+                  value as number,
+                  investmentResults ? investmentResults.currency : Currency.USD
+                );
               }}
             />
             <Legend

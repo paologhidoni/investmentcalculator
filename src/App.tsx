@@ -9,7 +9,6 @@ import Footer from "./components/Footer";
 /* models */
 import { InvestmentParams } from "./models/InvestmentParams";
 import { InvestmentResults } from "./models/InvestmentResults";
-import { Currency } from "./models/Currency";
 /* utils */
 import { initialFormState } from "./util";
 
@@ -33,14 +32,8 @@ function App() {
               setInvestmentResults={setInvestmentResults}
             />
 
-            {/* Placeholder for chart */}
-            <InvestmentChart
-              investmentResults={investmentResults}
-              currency={
-                (formState.investmentCurrency as keyof typeof Currency) ||
-                Currency.USD
-              }
-            />
+            {/* Chart */}
+            <InvestmentChart investmentResults={investmentResults} />
           </div>
 
           {/* Ivestment Data */}
