@@ -271,8 +271,9 @@ const InputForm = forwardRef<HTMLElement, Props>(
             handleBlur={handleBlur}
             touched={touched}
             ref={invDurationRef}
-            step={"1"}
+            step="1"
             validationFunc={isInvestmentDurationInvalid}
+            min="1"
           />
 
           {/* CURRENCY SELECTOR */}

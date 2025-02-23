@@ -18,7 +18,7 @@ export const initialFormState: InvestmentParams = {
   initialInvestment: "0",
   annualInvestment: "0",
   expectedReturn: "0",
-  investmentDuration: "0",
+  investmentDuration: "1",
   investmentCurrency: "USD",
 };
 
