@@ -2,12 +2,6 @@ import { InvestmentParams } from "./models/InvestmentParams";
 
 // check if the form is incomplete for styling and validation
 export const isFormIncomplete = (formState: InvestmentParams): boolean => {
-  if (
-    formState["investmentDuration"] === "0" ||
-    formState["investmentDuration"] === ""
-  )
-    return true;
-
   let inputs = [
     "initialInvestment",
     "annualInvestment",
@@ -15,7 +9,7 @@ export const isFormIncomplete = (formState: InvestmentParams): boolean => {
     "investmentDuration",
   ];
 
-  return inputs.every((input) => {
+  return inputs.some((input) => {
     const value = formState[input as keyof InvestmentParams].trim();
     return value === "" || value === "0";
   });

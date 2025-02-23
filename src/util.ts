@@ -15,10 +15,10 @@ export const formatCurrency = (num: number, currency = "GBP"): string => {
 };
 
 export const initialFormState: InvestmentParams = {
-  initialInvestment: "0",
-  annualInvestment: "0",
-  expectedReturn: "0",
-  investmentDuration: "1",
+  initialInvestment: "",
+  annualInvestment: "",
+  expectedReturn: "",
+  investmentDuration: "",
   investmentCurrency: "USD",
 };
 
