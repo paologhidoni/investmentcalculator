@@ -14,6 +14,7 @@ interface Props {
   type?: "number" | "select";
   options?: string[];
   step?: string;
+  min?: string;
   validationFunc?: (inputValue: string, touched: boolean) => string | null;
 }
 
@@ -30,6 +31,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
       type = "number",
       options,
       step = "any",
+      min = "0",
       validationFunc = null,
     },
     ref
@@ -73,7 +75,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
             onChange={(e) => onHandleChange(id, e.target.value)}
             type={type}
             step={step}
-            min="0"
+            min={min}
             className={`px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 h-[45px] ${
               errors.includes(id) ? "border-red-500 focus:ring-red-500" : ""
             }`}

@@ -117,20 +117,16 @@ const InputForm = forwardRef<HTMLElement, Props>(
         const firstErrorId = errors[0];
         switch (firstErrorId) {
           case "initial-investment":
-            navigate(initialInvRef);
-            initialInvRef.current?.focus();
+            navigate(initialInvRef, 50, true);
             break;
           case "annual-investment":
-            navigate(annualInvRef);
-            annualInvRef.current?.focus();
+            navigate(annualInvRef, 50, true);
             break;
           case "expected-return":
-            navigate(expectedRetRef);
-            expectedRetRef.current?.focus();
+            navigate(expectedRetRef, 50, true);
             break;
           case "investment-duration":
-            navigate(invDurationRef);
-            invDurationRef.current?.focus();
+            navigate(invDurationRef, 50, true);
             break;
           default:
             break;
@@ -172,7 +168,7 @@ const InputForm = forwardRef<HTMLElement, Props>(
       setHasSubmitted(false);
 
       // navigate user to form
-      navigate(formRef, 0);
+      navigate(formRef, 200);
     };
 
     const checkValidation = () => {
@@ -271,8 +267,9 @@ const InputForm = forwardRef<HTMLElement, Props>(
             handleBlur={handleBlur}
             touched={touched}
             ref={invDurationRef}
-            step={"1"}
+            step="1"
             validationFunc={isInvestmentDurationInvalid}
+            min="1"
           />
 
           {/* CURRENCY SELECTOR */}
