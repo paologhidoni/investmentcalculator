@@ -25,14 +25,18 @@ export const initialFormState: InvestmentParams = {
 export const navigate = (
   targetRef: React.RefObject<HTMLElement | HTMLInputElement | null>,
   timeout: number = 100,
+  focus: boolean = false,
   behavior: ScrollBehavior = "smooth"
 ): void => {
   setTimeout(() => {
     if (targetRef.current && targetRef.current.offsetHeight > 0) {
-      window.scrollTo({
-        top: targetRef.current.offsetTop,
-        behavior: behavior,
-      });
+      targetRef.current.scrollIntoView({ behavior, block: "center" });
     }
   }, timeout);
+
+  if (focus) {
+    setTimeout(() => {
+      if (targetRef.current) targetRef.current.focus();
+    }, timeout + 400);
+  }
 };
