@@ -9,7 +9,6 @@ import Footer from "./components/Footer";
 /* models */
 import { InvestmentParams } from "./models/InvestmentParams";
 import { InvestmentResults } from "./models/InvestmentResults";
-import { Currency } from "./models/Currency";
 /* utils */
 import { initialFormState } from "./util";
 
@@ -18,6 +17,10 @@ function App() {
     useState<InvestmentParams>(initialFormState);
   const [investmentResults, setInvestmentResults] =
     useState<InvestmentResults | null>(null);
+
+  const resetInvesmentData = (): void => {
+    setInvestmentResults(null);
+  };
 
   return (
     <>
@@ -31,16 +34,11 @@ function App() {
               formState={formState}
               setFormState={setFormState}
               setInvestmentResults={setInvestmentResults}
+              onResetInvestmentData={resetInvesmentData}
             />
 
-            {/* Placeholder for chart */}
-            <InvestmentChart
-              investmentResults={investmentResults}
-              currency={
-                (formState.investmentCurrency as keyof typeof Currency) ||
-                Currency.USD
-              }
-            />
+            {/* Chart */}
+            <InvestmentChart investmentResults={investmentResults} />
           </div>
 
           {/* Ivestment Data */}
