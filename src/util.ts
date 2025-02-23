@@ -26,11 +26,12 @@ export const navigate = (
   targetRef: React.RefObject<HTMLElement | HTMLInputElement | null>,
   timeout: number = 100,
   focus: boolean = false,
+  scrollBlock: ScrollLogicalPosition = "center",
   behavior: ScrollBehavior = "smooth"
 ): void => {
   setTimeout(() => {
     if (targetRef.current && targetRef.current.offsetHeight > 0) {
-      targetRef.current.scrollIntoView({ behavior, block: "center" });
+      targetRef.current.scrollIntoView({ behavior, block: scrollBlock });
     }
   }, timeout);
 

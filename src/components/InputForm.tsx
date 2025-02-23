@@ -109,7 +109,7 @@ const InputForm = forwardRef<HTMLElement, Props>(
         setTouched({});
 
         // navigate user to results (chart and data)
-        navigate(resultsRef, 200);
+        navigate(resultsRef, 200, false, "start");
       }
 
       // navigate user to first erroring field if we have errors
