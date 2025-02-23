@@ -29,15 +29,18 @@ interface Props {
   formState: InvestmentParams;
   setFormState: Dispatch<SetStateAction<InvestmentParams>>;
   setInvestmentResults: Dispatch<SetStateAction<InvestmentResults | null>>;
+  onResetInvestmentData: () => void;
 }
 
 const InputForm: React.FC<Props> = ({
   formState,
   setFormState,
   setInvestmentResults,
+  onResetInvestmentData,
 }) => {
   const [errors, setErrors] = useState<string[]>([]);
   const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [hasSubmitted, setHasSubmitted] = useState(false);
 
   const initialInvRef = useRef<HTMLInputElement | null>(null);
   const annualInvRef = useRef<HTMLInputElement | null>(null);
@@ -46,9 +49,7 @@ const InputForm: React.FC<Props> = ({
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setTouched((prev) => {
-      return { ...prev, ["submit-btn"]: true };
-    });
+    setHasSubmitted(true);
 
     if (errors.length === 0 && !isFormIncomplete(formState)) {
       const parsedInitialInvestment = parseFloat(formState.initialInvestment);
@@ -98,6 +99,9 @@ const InputForm: React.FC<Props> = ({
         ),
         currency: formState.investmentCurrency as keyof typeof Currency,
       });
+
+      // reset touched
+      setTouched({});
     }
 
     // navigate user to first erroring field if we have errors
@@ -134,6 +138,9 @@ const InputForm: React.FC<Props> = ({
         [id]: inputValue,
       };
     });
+
+    // reset "hasSubmitted" so that we can also reset "investmentResults" when user changes input values
+    setHasSubmitted(false);
   };
 
   // keep track of which field has been interacted with
@@ -148,6 +155,7 @@ const InputForm: React.FC<Props> = ({
     setErrors([]);
     setTouched({});
     setInvestmentResults(null);
+    setHasSubmitted(false);
   };
 
   const checkValidation = () => {
@@ -177,6 +185,15 @@ const InputForm: React.FC<Props> = ({
   // update errors state when the value of an input changes, if it has been interacted with
   useEffect(() => {
     checkValidation();
+
+    if (!hasSubmitted) {
+      onResetInvestmentData();
+    }
+
+    // Reset hasSubmitted if user interacts with the form after submission
+    if (hasSubmitted && Object.keys(touched).length > 0) {
+      setHasSubmitted(false);
+    }
   }, [formState, touched]);
 
   return (
@@ -253,6 +270,7 @@ const InputForm: React.FC<Props> = ({
           errors={errors}
           touched={touched}
           onResetForm={resetForm}
+          hasSubmitted={hasSubmitted}
         />
       </form>
     </section>

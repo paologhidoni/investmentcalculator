@@ -18,6 +18,10 @@ function App() {
   const [investmentResults, setInvestmentResults] =
     useState<InvestmentResults | null>(null);
 
+  const resetInvesmentData = (): void => {
+    setInvestmentResults(null);
+  };
+
   return (
     <>
       <Header />
@@ -30,6 +34,7 @@ function App() {
               formState={formState}
               setFormState={setFormState}
               setInvestmentResults={setInvestmentResults}
+              onResetInvestmentData={resetInvesmentData}
             />
 
             {/* Chart */}
