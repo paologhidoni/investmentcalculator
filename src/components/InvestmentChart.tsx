@@ -14,8 +14,9 @@ import { InvestmentResults } from "../models/InvestmentResults";
 import { formatCurrency } from "../util";
 /* models */
 import { Currency, CurrencySymbol } from "../models/Currency";
-/* Import RenderLegend */
+/* components */
 import RenderLegend from "./RenderLegend";
+import FinalResults from "./FinalResults";
 
 interface Props {
   investmentResults: InvestmentResults | null;
@@ -65,78 +66,83 @@ const InvestmentChart: React.FC<Props> = ({ investmentResults }) => {
           <FaChartArea className="text-8xl inline my-12" />
         </div>
       ) : (
-        <ResponsiveContainer width="100%" height={400}>
-          <LineChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="year" tick={{ dy: 10 }} />
-            <YAxis
-              tick={{ dx: -5 }}
-              tickFormatter={(value) => {
-                if (value >= 1_000_000) {
-                  return `${currencySymbol}${
-                    (value / 1_000_000) % 1 === 0
-                      ? value / 1_000_000
-                      : (value / 1_000_000).toFixed(1)
-                  }M`;
-                } else if (value >= 1_000) {
-                  return `${currencySymbol}${
-                    (value / 1_000) % 1 === 0
-                      ? value / 1_000
-                      : (value / 1_000).toFixed(1)
-                  }K`;
+        <>
+          <FinalResults investmentResults={investmentResults} />
+          <ResponsiveContainer width="100%" height={400}>
+            <LineChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="year" tick={{ dy: 10 }} />
+              <YAxis
+                tick={{ dx: -5 }}
+                tickFormatter={(value) => {
+                  if (value >= 1_000_000) {
+                    return `${currencySymbol}${
+                      (value / 1_000_000) % 1 === 0
+                        ? value / 1_000_000
+                        : (value / 1_000_000).toFixed(1)
+                    }M`;
+                  } else if (value >= 1_000) {
+                    return `${currencySymbol}${
+                      (value / 1_000) % 1 === 0
+                        ? value / 1_000
+                        : (value / 1_000).toFixed(1)
+                    }K`;
+                  }
+                  return `${currencySymbol}${value.toFixed(0)}`;
+                }}
+              />
+              <Tooltip
+                formatter={(value) => {
+                  return formatCurrency(
+                    value as number,
+                    investmentResults
+                      ? investmentResults.currency
+                      : Currency.USD
+                  );
+                }}
+              />
+              <Legend
+                content={
+                  <RenderLegend
+                    payload={[]}
+                    hiddenLines={hiddenLines}
+                    onLegendClick={handleLegendClick}
+                  />
                 }
-                return `${currencySymbol}${value.toFixed(0)}`;
-              }}
-            />
-            <Tooltip
-              formatter={(value) => {
-                return formatCurrency(
-                  value as number,
-                  investmentResults ? investmentResults.currency : Currency.USD
-                );
-              }}
-            />
-            <Legend
-              content={
-                <RenderLegend
-                  payload={[]}
-                  hiddenLines={hiddenLines}
-                  onLegendClick={handleLegendClick}
-                />
-              }
-            />
+              />
 
-            <Line
-              type="monotone"
-              dataKey="investmentTotal"
-              stroke={
-                hiddenLines.investmentTotal
-                  ? "transparent"
-                  : "var(--secondary-color)"
-              }
-              activeDot={{ r: 8 }}
-              name="Total Investment"
-            />
-            <Line
-              type="monotone"
-              dataKey="yearlyInvestment"
-              stroke={
-                hiddenLines.yearlyInvestment
-                  ? "transparent"
-                  : "var(--primary-color_t2)"
-              }
-              name="Annual Investment"
-            />
-            <Line
-              type="monotone"
-              dataKey="returns"
-              stroke={
-                hiddenLines.returns ? "transparent" : "var(--tertiary-color)"
-              }
-              name="Annual Return Growth"
-            />
-          </LineChart>
-        </ResponsiveContainer>
+              <Line
+                type="monotone"
+                dataKey="investmentTotal"
+                stroke={
+                  hiddenLines.investmentTotal
+                    ? "transparent"
+                    : "var(--secondary-color)"
+                }
+                activeDot={{ r: 8 }}
+                name="Total Investment"
+              />
+              <Line
+                type="monotone"
+                dataKey="yearlyInvestment"
+                stroke={
+                  hiddenLines.yearlyInvestment
+                    ? "transparent"
+                    : "var(--primary-color_t2)"
+                }
+                name="Annual Investment"
+              />
+              <Line
+                type="monotone"
+                dataKey="returns"
+                stroke={
+                  hiddenLines.returns ? "transparent" : "var(--tertiary-color)"
+                }
+                name="Annual Return Growth"
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </>
       )}
     </section>
   );
