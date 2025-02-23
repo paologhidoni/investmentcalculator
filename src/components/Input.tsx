@@ -84,7 +84,7 @@ const Input = forwardRef<HTMLInputElement, Props>(
         {validationError !== null && (
           <p
             id={`${id}-error`}
-            className="text-red-500 rounded-lg py-2 px-2 mt-1 bg-[rgba(0,0,0,0.5)] text-center font-medium text-lg"
+            className="text-red-500 rounded-lg py-2 px-2 mt-1 bg-[rgba(0,0,0,0.7)] text-center font-medium text-lg"
             aria-live="assertive"
           >
             {validationError}

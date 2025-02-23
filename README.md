@@ -26,6 +26,18 @@ An interactive **Investment Calculator** built with **React + TypeScript**, allo
 - **Tailwind CSS** – For styling and layout.
 - **Vitest** – For testing.
 
+## 🚀 Accessibility Achievement
+
+I'm proud to share that this project has achieved a **100% accessibility** score on Lighthouse. By focusing on accessibility best practices, I've worked to create an inclusive experience for everyone, regardless of their needs.
+
+This achievement reflects:
+
+- Adherence to WCAG guidelines.
+- Optimization of semantic HTML.
+- Full keyboard navigability.
+- Testing and optimization for VoiceOver on macOS to ensure content is read clearly and navigable.
+- Effective ARIA attributes.
+
 ## 📦 Installation
 
 1. Clone the repository:

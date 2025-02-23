@@ -51,7 +51,7 @@ const FormButtons: React.FC<Props> = ({
         <button
           type="button"
           onClick={onResetForm}
-          className={`px-6 py-3 mt-4 font-semibold rounded-md bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 hover:bg-red-700 cursor-pointer`}
+          className={`px-6 py-3 mt-4 font-semibold rounded-md bg-red-600 focus:outline-none focus:ring-2 focus:ring-white hover:bg-red-700 cursor-pointer`}
           aria-label="Reset form"
         >
           Reset
@@ -61,7 +61,7 @@ const FormButtons: React.FC<Props> = ({
       {/* ERROR HANDLING */}
       {(hasSubmitted || Object.keys(touched).length === 4) &&
         (errors.length > 0 || isFormIncomplete(formState)) && (
-          <p className="text-red-500 rounded-lg py-2 px-2 mt-1 bg-[rgba(0,0,0,0.5)] text-center font-medium text-lg">
+          <p className="text-red-500 rounded-lg py-2 px-2 mt-1 bg-[rgba(0,0,0,0.7)] text-center font-medium text-lg">
             Please correctly fill in all fields
           </p>
         )}
