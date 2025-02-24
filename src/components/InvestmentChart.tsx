@@ -17,6 +17,7 @@ import { Currency, CurrencySymbol } from "../models/Currency";
 /* components */
 import RenderLegend from "./RenderLegend";
 import FinalResults from "./FinalResults";
+import Heading from "./Heading";
 
 interface Props {
   investmentResults: InvestmentResults | null;
@@ -73,6 +74,7 @@ const InvestmentChart = forwardRef<HTMLElement, Props>(
           </div>
         ) : (
           <>
+            <Heading>Investment Chart</Heading>
             <FinalResults investmentResults={investmentResults} />
             <ResponsiveContainer width="100%" height={400}>
               <LineChart data={chartData}>
