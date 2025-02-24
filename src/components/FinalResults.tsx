@@ -8,7 +8,7 @@ interface Props {
 
 const FinalResults: React.FC<Props> = ({ investmentResults }) => {
   return (
-    <div className="grid grid-cols-3 text-center mb-2 md:mb-3 bg-(--primary-color) px-1 py-3 border-x-4 border-(--secondary-color) rounded-sm font-bold">
+    <div className="grid grid-cols-3 text-center mb-2 md:mb-3 bg-(--primary-color) px-1 py-3 border-x-4 border-(--secondary-color) rounded-b-sm font-bold">
       <h2 className="mb-1 text-sm md:text-base">Tot contributions</h2>
       <h2 className="mb-1 text-sm md:text-base">Tot returns</h2>
       <h2 className="mb-1 text-sm md:text-base">Final value</h2>

@@ -5,6 +5,7 @@ import { formatCurrency } from "../util";
 import FinalResults from "./FinalResults";
 /* models */
 import { InvestmentResults } from "../models/InvestmentResults";
+import Heading from "./Heading";
 
 interface Props {
   investmentResults: InvestmentResults | null;
@@ -24,6 +25,7 @@ const InvestmentData: React.FC<Props> = ({ investmentResults }) => {
 
       {investmentResults && investmentResults.yearsProjection.length > 0 && (
         <>
+          <Heading>Investment Breakdown</Heading>
           <FinalResults investmentResults={investmentResults} />
 
           <div>
