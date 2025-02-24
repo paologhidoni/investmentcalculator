@@ -36,19 +36,37 @@ const InvestmentData: React.FC<Props> = ({ investmentResults }) => {
               <h3 className="font-bold">Tot Investment</h3>
 
               {/* Data Rows */}
-              {investmentResults.yearsProjection.map((entry) => (
+              {investmentResults.yearsProjection.map((entry, i) => (
                 <React.Fragment key={entry.id}>
-                  <div className="font-medium italic">{entry.year}</div>
-                  <div>
+                  <div
+                    className={`font-medium italic ${
+                      i % 2 === 0 ? "bg-(--secondary-color_t2)" : ""
+                    }`}
+                  >
+                    {entry.year}
+                  </div>
+                  <div
+                    className={`${
+                      i % 2 === 0 ? "bg-(--secondary-color_t2)" : ""
+                    }`}
+                  >
                     {formatCurrency(
                       entry.yearlyInvestment,
                       investmentResults.currency
                     )}
                   </div>
-                  <div>
+                  <div
+                    className={`${
+                      i % 2 === 0 ? "bg-(--secondary-color_t2)" : ""
+                    }`}
+                  >
                     {formatCurrency(entry.returns, investmentResults.currency)}
                   </div>
-                  <div>
+                  <div
+                    className={`${
+                      i % 2 === 0 ? "bg-(--secondary-color_t2)" : ""
+                    }`}
+                  >
                     {formatCurrency(
                       entry.investmentTotal,
                       investmentResults.currency

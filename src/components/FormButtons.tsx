@@ -68,7 +68,9 @@ const FormButtons: React.FC<Props> = ({
           )}
 
         {hasSubmitted && !changesWereMade() && !isFormIncomplete(formState) && (
-          <p>Please update your selections before submitting again</p>
+          <p className="text-center md:text-end">
+            Please update your selections before submitting again
+          </p>
         )}
       </div>
     </>
