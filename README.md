@@ -88,7 +88,9 @@ This breakdown helps you track how your investment grows over time and understan
 
 ## 🔥 Future Enhancements
 
-- [ ] Add **Dark Mode**
-- [ ] Implement **export to PDF/CSV** feature
-- [ ] Allow users to select different **compounding frequencies** (monthly, quarterly, yearly)
+- [ ] Add **Dark Mode**.
+- [ ] Implement **export to PDF/CSV** feature.
+- [ ] Allow users to select different **compounding frequencies** (monthly, quarterly, yearly).
 - [ ] Allow users to adjust **annual investment** dynamically and update the data & chart in real time.
+- [ ] Add **tootltips** to explain each field.
+- [ ] Make it a full stack app with **authentication** and feature to **save investment calculation**.
