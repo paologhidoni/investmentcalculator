@@ -8,6 +8,7 @@ const Footer: React.FC = () => {
         <a
           href="https://paologhidoni.github.io/portfolio/"
           className="underline underline-offset-5"
+          target="_blank"
         >
           Paolo Ghidoni
         </a>
