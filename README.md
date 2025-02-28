@@ -61,24 +61,28 @@ This achievement reflects:
 
 ## Investment Projection Breakdown
 
+This breakdown helps you track how your investment grows over time and understand the impact of both contributions and returns.
+
 Below is an example of how the investment projection is calculated and displayed:
 
-| Year | Investment for the Year             | Return for the Year | Total Investment at Year-End |
-| ---- | ----------------------------------- | ------------------- | ---------------------------- |
-| 2026 | Initial + Annual Contribution       | Calculated Return   | Updated Total                |
-| 2027 | Updated Total + Annual Contribution | Calculated Return   | Updated Total                |
-| 2028 | Updated Total + Annual Contribution | Calculated Return   | Updated Total                |
-| 2029 | Updated Total + Annual Contribution | Calculated Return   | Updated Total                |
-| 2030 | Updated Total + Annual Contribution | Calculated Return   | Updated Total                |
+| Year | Contribution        | Interest            | Investment Value                                |
+| ---- | ------------------- | ------------------- | ----------------------------------------------- |
+| 2026 | Annual Contribution | Calculated Interest | Initial Investment + Contribution + Interest    |
+| 2027 | Annual Contribution | Calculated Interest | Previous Year’s Value + Contribution + Interest |
+| 2028 | Annual Contribution | Calculated Interest | Previous Year’s Value + Contribution + Interest |
+| 2029 | Annual Contribution | Calculated Interest | Previous Year’s Value + Contribution + Interest |
+| 2030 | Annual Contribution | Calculated Interest | Previous Year’s Value + Contribution + Interest |
 
 ### Explanation of Columns:
 
 - **Year**: The year of the projection.
-- **Investment for the Year**: The total amount invested in that year (initial investment plus annual contributions).
-- **Return for the Year**: The calculated return for that year, based on the total investment and expected return rate.
-- **Total Investment at Year-End**: The total investment at the end of the year, including the initial investment, annual contributions, and the returns.
-
-This breakdown helps you track how your investment grows over time and understand the impact of both contributions and returns.
+- **Contribution**: The total amount invested in that year.
+- **Interest**: The calculated interest return for that year, based on the total investment and expected return rate.
+- **Investment Value**: The total investment value at the end of the year, including:
+  - The **initial investment** (included in the first year only),
+  - The **annual contributions**,
+  - The **annual interest returns**, and
+  - And the accumulated value from previous years.
 
 ## 🎯 Goals:
 
@@ -88,9 +92,9 @@ This breakdown helps you track how your investment grows over time and understan
 
 ## 🔥 Future Enhancements
 
-- [ ] Add **Dark Mode**.
 - [ ] Implement **export to PDF/CSV** feature.
 - [ ] Allow users to select different **compounding frequencies** (monthly, quarterly, yearly).
 - [ ] Allow users to adjust **annual investment** dynamically and update the data & chart in real time.
 - [ ] Add **tootltips** to explain each field.
 - [ ] Make it a full stack app with **authentication** and feature to **save investment calculation**.
+- [ ] Add **Dark Mode**.
