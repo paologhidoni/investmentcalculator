@@ -3,5 +3,5 @@ export interface YearlyProjection {
   year: number;
   yearlyInvestment: number;
   investmentTotal: number;
-  returns: number;
+  interest: number;
 }

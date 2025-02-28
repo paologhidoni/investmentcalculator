@@ -31,9 +31,9 @@ const InvestmentData: React.FC<Props> = ({ investmentResults }) => {
             <div className="grid bg-(--secondary-color) text-white px-1 py-4 rounded-sm grid-cols-[60px_auto_auto_auto] gap-1.5 text-center text-xs lg:text-base">
               {/* Header Row */}
               <h3 className="font-bold">Year</h3>
-              <h3 className="font-bold">Investment</h3>
-              <h3 className="font-bold">Returns</h3>
-              <h3 className="font-bold">Tot Investment</h3>
+              <h3 className="font-bold">Contribution</h3>
+              <h3 className="font-bold">Interest</h3>
+              <h3 className="font-bold">Investment Value</h3>
 
               {/* Data Rows */}
               {investmentResults.yearsProjection.map((entry, i) => (
@@ -60,7 +60,7 @@ const InvestmentData: React.FC<Props> = ({ investmentResults }) => {
                       i % 2 === 0 ? "bg-(--secondary-color_t2)" : ""
                     }`}
                   >
-                    {formatCurrency(entry.returns, investmentResults.currency)}
+                    {formatCurrency(entry.interest, investmentResults.currency)}
                   </div>
                   <div
                     className={`${
