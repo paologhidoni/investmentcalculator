@@ -11,7 +11,7 @@ export const isFormIncomplete = (formState: InvestmentParams): boolean => {
 
   return inputs.some((input) => {
     const value = formState[input as keyof InvestmentParams].trim();
-    return value === "" || value === "0";
+    return value === "";
   });
 };
 
