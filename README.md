@@ -2,7 +2,9 @@
 
 An interactive **Investment Calculator** built with **React + TypeScript**, allowing users to visualize the growth of their investments over time with dynamic charts. <a href="https://paologhidoni.github.io/investmentcalculator/" target="_blank">🚀 Live Demo: Investment Calculator</a>
 
-<img src="./public/investmentcalculator.png" alt="Investment Calculator Preview"/>
+<img src="./public/investmentcalculator.png" alt="Investment Calculator Data Chart Preview"/>
+
+<img src="./public/investmentcalculator2.png" alt="Investment Calculator Data Breakdown Preview"/>
 
 ## 🚀 Features
 
@@ -67,11 +69,11 @@ Below is an example of how the investment projection is calculated and displayed
 
 | Year | Contribution        | Interest            | Investment Value                                |
 | ---- | ------------------- | ------------------- | ----------------------------------------------- |
-| 2026 | Annual Contribution | Calculated Interest | Initial Investment + Contribution + Interest    |
-| 2027 | Annual Contribution | Calculated Interest | Previous Year’s Value + Contribution + Interest |
-| 2028 | Annual Contribution | Calculated Interest | Previous Year’s Value + Contribution + Interest |
-| 2029 | Annual Contribution | Calculated Interest | Previous Year’s Value + Contribution + Interest |
-| 2030 | Annual Contribution | Calculated Interest | Previous Year’s Value + Contribution + Interest |
+| 1    | Annual Contribution | Calculated Interest | Initial Investment + Contribution + Interest    |
+| 2    | Annual Contribution | Calculated Interest | Previous Year’s Value + Contribution + Interest |
+| 3    | Annual Contribution | Calculated Interest | Previous Year’s Value + Contribution + Interest |
+| 4    | Annual Contribution | Calculated Interest | Previous Year’s Value + Contribution + Interest |
+| 5    | Annual Contribution | Calculated Interest | Previous Year’s Value + Contribution + Interest |
 
 ### Explanation of Columns:
 
