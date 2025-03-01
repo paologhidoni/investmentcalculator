@@ -46,7 +46,7 @@ const InvestmentChart = forwardRef<HTMLElement, Props>(
             year: entry.year,
             investmentTotal: entry.investmentTotal,
             yearlyInvestment: entry.yearlyInvestment,
-            returns: entry.returns,
+            returns: entry.interest,
           })
         );
         setChartData(updatedChartData);
@@ -66,7 +66,7 @@ const InvestmentChart = forwardRef<HTMLElement, Props>(
     return (
       <section
         ref={resultsRef}
-        className="p-2 md:p-6 bg-gray-100 rounded-lg text-gray-700"
+        className="p-2 pb-8 md:p-6 md:pb-12 bg-gray-100 rounded-lg text-gray-700"
       >
         {!chartData.length ? (
           <div className="text-center text-(--secondary-color)">
@@ -79,7 +79,16 @@ const InvestmentChart = forwardRef<HTMLElement, Props>(
             <ResponsiveContainer width="100%" height={400}>
               <LineChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="year" tick={{ dy: 10 }} />
+                <XAxis
+                  dataKey="year"
+                  tick={{ dy: 10 }}
+                  label={{
+                    value: "Year",
+                    position: "bottom",
+                    offset: 15,
+                    style: { fontWeight: "bold", fontStyle: "italic" },
+                  }}
+                />
                 <YAxis
                   tick={{ dx: -5 }}
                   tickFormatter={(value) => {
@@ -110,6 +119,12 @@ const InvestmentChart = forwardRef<HTMLElement, Props>(
                   }}
                 />
                 <Legend
+                  wrapperStyle={{
+                    position: "absolute", // Set absolute positioning
+                    bottom: "-20px", // Adjust the distance from the top
+                    left: "50%", // Center the legend horizontally
+                    transform: "translateX(-50%)", // Center properly
+                  }}
                   content={
                     <RenderLegend
                       payload={[]}
@@ -121,24 +136,13 @@ const InvestmentChart = forwardRef<HTMLElement, Props>(
 
                 <Line
                   type="monotone"
-                  dataKey="investmentTotal"
-                  stroke={
-                    hiddenLines.investmentTotal
-                      ? "transparent"
-                      : "var(--secondary-color)"
-                  }
-                  activeDot={{ r: 8 }}
-                  name="Total Investment"
-                />
-                <Line
-                  type="monotone"
                   dataKey="yearlyInvestment"
                   stroke={
                     hiddenLines.yearlyInvestment
                       ? "transparent"
                       : "var(--primary-color_t2)"
                   }
-                  name="Annual Investment"
+                  name="Annual Contribution"
                 />
                 <Line
                   type="monotone"
@@ -148,7 +152,18 @@ const InvestmentChart = forwardRef<HTMLElement, Props>(
                       ? "transparent"
                       : "var(--tertiary-color)"
                   }
-                  name="Annual Return Growth"
+                  name="Annual Interest"
+                />
+                <Line
+                  type="monotone"
+                  dataKey="investmentTotal"
+                  stroke={
+                    hiddenLines.investmentTotal
+                      ? "transparent"
+                      : "var(--secondary-color)"
+                  }
+                  activeDot={{ r: 8 }}
+                  name="Investment Value"
                 />
               </LineChart>
             </ResponsiveContainer>

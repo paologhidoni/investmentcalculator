@@ -6,24 +6,26 @@ import React, {
   useRef,
   forwardRef,
 } from "react";
-import { v4 as uuidv4 } from "uuid";
 /* components */
 import Input from "./Input";
 import FormButtons from "./FormButtons";
 /* models */
 import { InvestmentParams } from "../models/InvestmentParams";
 import { InvestmentResults } from "../models/InvestmentResults";
-import { Currency } from "../models/Currency";
 import { OnHandleChangeParams } from "../models/OnHandleChangeParams";
-import { YearlyProjection } from "../models/YearlyProjection";
 import { currencies } from "../models/Currency";
 /* utils */
-import { initialFormState, formatCurrency, navigate } from "../util";
+import {
+  initialFormState,
+  navigate,
+  calculateInvestmentResults,
+} from "../util";
 /* fields validation */
 import {
   isInvalidInput,
   isFormIncomplete,
   isInvestmentDurationInvalid,
+  checkValidation,
 } from "../validation";
 
 interface Props {
@@ -55,54 +57,24 @@ const InputForm = forwardRef<HTMLElement, Props>(
       setHasSubmitted(true);
 
       if (errors.length === 0 && !isFormIncomplete(formState)) {
-        const parsedInitialInvestment = parseFloat(formState.initialInvestment);
-        const parsedAnnualInvestment = parseFloat(formState.annualInvestment);
-        const parsedExpectedReturn = parseFloat(formState.expectedReturn);
-        const parsedInvestmentDuration = parseFloat(
-          formState.investmentDuration
-        );
-
-        const yearlyProjections: YearlyProjection[] = [];
-        let userContribution = parsedInitialInvestment;
-        let investmentTotal = parsedInitialInvestment;
-        let totalReturns = 0;
-
-        // Loop to calculate projections
-        for (let year = 1; year <= parsedInvestmentDuration; year++) {
-          const yearlyReturn = (investmentTotal * parsedExpectedReturn) / 100;
-          userContribution += parsedAnnualInvestment;
-          investmentTotal += yearlyReturn + parsedAnnualInvestment;
-          totalReturns += yearlyReturn;
-
-          yearlyProjections.push({
-            id: uuidv4(),
-            year: new Date().getUTCFullYear() + year,
-            yearlyInvestment: parsedAnnualInvestment,
-            returns: yearlyReturn,
-            investmentTotal: investmentTotal,
-          });
-        }
+        // calculate and destructure results
+        const {
+          initialInvestment,
+          yearsProjection,
+          totalContributions,
+          totalReturns,
+          finalInvestmentValue,
+          currency,
+        } = calculateInvestmentResults(formState);
 
         // Set the investment results
         setInvestmentResults({
-          initialInvestment: formatCurrency(
-            parsedAnnualInvestment,
-            formState.investmentCurrency
-          ),
-          yearsProjection: yearlyProjections,
-          totalContributions: formatCurrency(
-            userContribution,
-            formState.investmentCurrency
-          ),
-          totalReturns: formatCurrency(
-            totalReturns,
-            formState.investmentCurrency
-          ),
-          finalInvestmentValue: formatCurrency(
-            investmentTotal,
-            formState.investmentCurrency
-          ),
-          currency: formState.investmentCurrency as keyof typeof Currency,
+          initialInvestment,
+          yearsProjection,
+          totalContributions,
+          totalReturns,
+          finalInvestmentValue,
+          currency,
         });
 
         // reset touched
@@ -171,36 +143,9 @@ const InputForm = forwardRef<HTMLElement, Props>(
       navigate(formRef, 200);
     };
 
-    const checkValidation = () => {
-      const newErrors: string[] = [];
-
-      if (
-        isInvalidInput(
-          formState.initialInvestment,
-          touched["initial-investment"]
-        )
-      )
-        newErrors.push("initial-investment");
-      if (
-        isInvalidInput(formState.annualInvestment, touched["annual-investment"])
-      )
-        newErrors.push("annual-investment");
-      if (isInvalidInput(formState.expectedReturn, touched["expected-return"]))
-        newErrors.push("expected-return");
-      if (
-        isInvestmentDurationInvalid(
-          formState.investmentDuration,
-          touched["investment-duration"]
-        )
-      )
-        newErrors.push("investment-duration");
-
-      setErrors(newErrors);
-    };
-
     // update errors state when the value of an input changes, if it has been interacted with
     useEffect(() => {
-      checkValidation();
+      setErrors(checkValidation(formState, touched));
 
       if (!hasSubmitted) {
         onResetInvestmentData();

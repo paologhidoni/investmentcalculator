@@ -11,7 +11,7 @@ export const isFormIncomplete = (formState: InvestmentParams): boolean => {
 
   return inputs.some((input) => {
     const value = formState[input as keyof InvestmentParams].trim();
-    return value === "" || value === "0";
+    return value === "";
   });
 };
 
@@ -45,4 +45,29 @@ export const isInvalidInput = (
   }
 
   return null;
+};
+
+export const checkValidation = (
+  formState: InvestmentParams,
+  touched: Record<string, boolean>
+) => {
+  const newErrors: string[] = [];
+
+  if (
+    isInvalidInput(formState.initialInvestment, touched["initial-investment"])
+  )
+    newErrors.push("initial-investment");
+  if (isInvalidInput(formState.annualInvestment, touched["annual-investment"]))
+    newErrors.push("annual-investment");
+  if (isInvalidInput(formState.expectedReturn, touched["expected-return"]))
+    newErrors.push("expected-return");
+  if (
+    isInvestmentDurationInvalid(
+      formState.investmentDuration,
+      touched["investment-duration"]
+    )
+  )
+    newErrors.push("investment-duration");
+
+  return newErrors;
 };

@@ -2,7 +2,9 @@
 
 An interactive **Investment Calculator** built with **React + TypeScript**, allowing users to visualize the growth of their investments over time with dynamic charts. <a href="https://paologhidoni.github.io/investmentcalculator/" target="_blank">🚀 Live Demo: Investment Calculator</a>
 
-<img src="./public/investmentcalculator.png" alt="Investment Calculator Preview"/>
+<img src="./public/investmentcalculator.png" alt="Investment Calculator Data Chart Preview"/>
+
+<img src="./public/investmentcalculator2.png" alt="Investment Calculator Data Breakdown Preview"/>
 
 ## 🚀 Features
 
@@ -61,24 +63,32 @@ This achievement reflects:
 
 ## Investment Projection Breakdown
 
+This breakdown helps you track how your investment grows over time and understand the impact of both contributions and returns.
+
+At the moment, it is **assumed that the initial investment is made at the start of year 1**, and each **annual contribution is made at the end of each year**.
+
+The **Interest** is calculated based on the total investment at the beginning of the year, including any previous year's contributions and interest.
+
 Below is an example of how the investment projection is calculated and displayed:
 
-| Year | Investment for the Year             | Return for the Year | Total Investment at Year-End |
-| ---- | ----------------------------------- | ------------------- | ---------------------------- |
-| 2026 | Initial + Annual Contribution       | Calculated Return   | Updated Total                |
-| 2027 | Updated Total + Annual Contribution | Calculated Return   | Updated Total                |
-| 2028 | Updated Total + Annual Contribution | Calculated Return   | Updated Total                |
-| 2029 | Updated Total + Annual Contribution | Calculated Return   | Updated Total                |
-| 2030 | Updated Total + Annual Contribution | Calculated Return   | Updated Total                |
+| Year | Contribution        | Interest            | Investment Value                                |
+| ---- | ------------------- | ------------------- | ----------------------------------------------- |
+| 1    | Annual Contribution | Calculated Interest | Initial Investment + Contribution + Interest    |
+| 2    | Annual Contribution | Calculated Interest | Previous Year’s Value + Contribution + Interest |
+| 3    | Annual Contribution | Calculated Interest | Previous Year’s Value + Contribution + Interest |
+| 4    | Annual Contribution | Calculated Interest | Previous Year’s Value + Contribution + Interest |
+| 5    | Annual Contribution | Calculated Interest | Previous Year’s Value + Contribution + Interest |
 
 ### Explanation of Columns:
 
 - **Year**: The year of the projection.
-- **Investment for the Year**: The total amount invested in that year (initial investment plus annual contributions).
-- **Return for the Year**: The calculated return for that year, based on the total investment and expected return rate.
-- **Total Investment at Year-End**: The total investment at the end of the year, including the initial investment, annual contributions, and the returns.
-
-This breakdown helps you track how your investment grows over time and understand the impact of both contributions and returns.
+- **Contribution**: The total amount invested in that year.
+- **Interest**: The calculated interest return for that year, based on the total investment and expected return rate.
+- **Investment Value**: The total investment value at the end of the year, including:
+  - The **initial investment** (included in the first year only),
+  - The **annual contributions**,
+  - The **annual interest returns**, and
+  - And the accumulated value from previous years.
 
 ## 🎯 Goals:
 
@@ -88,7 +98,11 @@ This breakdown helps you track how your investment grows over time and understan
 
 ## 🔥 Future Enhancements
 
-- [ ] Add **Dark Mode**
-- [ ] Implement **export to PDF/CSV** feature
-- [ ] Allow users to select different **compounding frequencies** (monthly, quarterly, yearly)
-- [ ] Allow users to adjust **annual investment** dynamically and update the data & chart in real time.
+- [ ] **Implement a stacked bar chart** to visualize the yearly data, with each column representing the contribution, interest, and investment value separately.
+- [ ] Make it a full stack app with **authentication** and feature to **save investment calculation**.
+- [ ] Implement **export to PDF/CSV** feature.
+- [ ] Allow user to select whether the **contribution** is made at the **start or end of the year**.
+- [ ] Implement the ability to **choose the contribution frequency**, allowing users to select from different options (monthly, quarterly, yearly).
+- [ ] Allow users to **select different compounding frequencies** (monthly, quarterly, yearly).
+- [ ] Add **tootltips** to explain each field.
+- [ ] Add **Dark Mode**.
