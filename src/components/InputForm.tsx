@@ -25,6 +25,7 @@ import {
   isInvalidInput,
   isFormIncomplete,
   isInvestmentDurationInvalid,
+  checkValidation,
 } from "../validation";
 
 interface Props {
@@ -142,36 +143,9 @@ const InputForm = forwardRef<HTMLElement, Props>(
       navigate(formRef, 200);
     };
 
-    const checkValidation = () => {
-      const newErrors: string[] = [];
-
-      if (
-        isInvalidInput(
-          formState.initialInvestment,
-          touched["initial-investment"]
-        )
-      )
-        newErrors.push("initial-investment");
-      if (
-        isInvalidInput(formState.annualInvestment, touched["annual-investment"])
-      )
-        newErrors.push("annual-investment");
-      if (isInvalidInput(formState.expectedReturn, touched["expected-return"]))
-        newErrors.push("expected-return");
-      if (
-        isInvestmentDurationInvalid(
-          formState.investmentDuration,
-          touched["investment-duration"]
-        )
-      )
-        newErrors.push("investment-duration");
-
-      setErrors(newErrors);
-    };
-
     // update errors state when the value of an input changes, if it has been interacted with
     useEffect(() => {
-      checkValidation();
+      setErrors(checkValidation(formState, touched));
 
       if (!hasSubmitted) {
         onResetInvestmentData();
