@@ -65,6 +65,10 @@ This achievement reflects:
 
 This breakdown helps you track how your investment grows over time and understand the impact of both contributions and returns.
 
+At the moment, it is **assumed that the initial investment is made at the start of year 1**, and each **annual contribution is made at the end of each year**.
+
+The **Interest** is calculated based on the total investment at the beginning of the year, including any previous year's contributions and interest.
+
 Below is an example of how the investment projection is calculated and displayed:
 
 | Year | Contribution        | Interest            | Investment Value                                |
@@ -94,9 +98,11 @@ Below is an example of how the investment projection is calculated and displayed
 
 ## 🔥 Future Enhancements
 
-- [ ] Implement **export to PDF/CSV** feature.
-- [ ] Allow users to select different **compounding frequencies** (monthly, quarterly, yearly).
-- [ ] Allow users to adjust **annual investment** dynamically and update the data & chart in real time.
-- [ ] Add **tootltips** to explain each field.
+- [ ] **Implement a stacked bar chart** to visualize the yearly data, with each column representing the contribution, interest, and investment value separately.
 - [ ] Make it a full stack app with **authentication** and feature to **save investment calculation**.
+- [ ] Implement **export to PDF/CSV** feature.
+- [ ] Allow user to select whether the **contribution** is made at the **start or end of the year**.
+- [ ] Implement the ability to **choose the contribution frequency**, allowing users to select from different options (monthly, quarterly, yearly).
+- [ ] Allow users to **select different compounding frequencies** (monthly, quarterly, yearly).
+- [ ] Add **tootltips** to explain each field.
 - [ ] Add **Dark Mode**.
