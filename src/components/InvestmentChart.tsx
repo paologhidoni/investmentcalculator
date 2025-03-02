@@ -109,7 +109,12 @@ const InvestmentChart = forwardRef<HTMLElement, Props>(
                   }}
                 />
                 <Tooltip
+                  // format the Tooltip label (which displays the year)
+                  labelFormatter={(value) => {
+                    return `Year ${value}`;
+                  }}
                   formatter={(value) => {
+                    // Format the y-axis values (the lines to display as currency)
                     return formatCurrency(
                       value as number,
                       investmentResults
@@ -118,12 +123,13 @@ const InvestmentChart = forwardRef<HTMLElement, Props>(
                     );
                   }}
                 />
+
                 <Legend
                   wrapperStyle={{
-                    position: "absolute", // Set absolute positioning
-                    bottom: "-20px", // Adjust the distance from the top
-                    left: "50%", // Center the legend horizontally
-                    transform: "translateX(-50%)", // Center properly
+                    position: "absolute",
+                    bottom: "-20px",
+                    left: "50%",
+                    transform: "translateX(-50%)",
                   }}
                   content={
                     <RenderLegend
