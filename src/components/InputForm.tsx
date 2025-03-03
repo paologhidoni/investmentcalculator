@@ -140,7 +140,7 @@ const InputForm = forwardRef<HTMLElement, Props>(
       setHasSubmitted(false);
 
       // navigate user to form
-      navigate(formRef, 200);
+      navigate(initialInvRef, 200, true);
     };
 
     // update errors state when the value of an input changes, if it has been interacted with
