@@ -38,45 +38,45 @@ const InvestmentData: React.FC<Props> = ({ investmentResults }) => {
               aria-labelledby="investment-breakdown-heading"
             >
               {/* Header Row */}
-              <div role="rowgroup">
-                <div
+              <thead role="rowgroup" className="block">
+                <tr
                   role="row"
                   className="grid grid-cols-[0.3fr_0.7fr_1.5fr_1.5fr] md:grid-cols-[60px_1fr_1fr_1fr] gap-x-1.5 gap-y-1.5"
                 >
-                  <h3 className="font-bold" role="columnheader">
+                  <th className="font-bold" role="columnheader">
                     Year
-                  </h3>
-                  <h3 className="font-bold" role="columnheader">
+                  </th>
+                  <th className="font-bold" role="columnheader">
                     Contribution
-                  </h3>
-                  <h3 className="font-bold" role="columnheader">
+                  </th>
+                  <th className="font-bold" role="columnheader">
                     Interest
-                  </h3>
-                  <h3 className="font-bold" role="columnheader">
+                  </th>
+                  <th className="font-bold" role="columnheader">
                     Investment Value
-                  </h3>
-                </div>
-              </div>
+                  </th>
+                </tr>
+              </thead>
 
               {/* Data Rows */}
-              <div role="rowgroup">
+              <tbody role="rowgroup" className="block">
                 {investmentResults.yearsProjection.map((entry, i) => (
-                  <div
+                  <tr
                     role="row"
                     key={entry.id}
                     className={`grid grid-cols-[0.3fr_0.7fr_1.5fr_1.5fr] md:grid-cols-[60px_1fr_1fr_1fr] gap-x-1.5 mb-1.5 ${
                       i % 2 === 0 ? "bg-[--secondary-color_t2]" : ""
                     }`}
                   >
-                    <div
+                    <td
                       role="rowheader"
                       className={`font-medium italic ${
                         i % 2 === 0 ? "bg-(--secondary-color_t2)" : ""
                       }`}
                     >
                       {entry.year}
-                    </div>
-                    <div
+                    </td>
+                    <td
                       role="cell"
                       className={`${
                         i % 2 === 0 ? "bg-(--secondary-color_t2)" : ""
@@ -86,8 +86,8 @@ const InvestmentData: React.FC<Props> = ({ investmentResults }) => {
                         entry.yearlyInvestment,
                         investmentResults.currency
                       )}
-                    </div>
-                    <div
+                    </td>
+                    <td
                       role="cell"
                       className={`${
                         i % 2 === 0 ? "bg-(--secondary-color_t2)" : ""
@@ -97,8 +97,8 @@ const InvestmentData: React.FC<Props> = ({ investmentResults }) => {
                         entry.interest,
                         investmentResults.currency
                       )}
-                    </div>
-                    <div
+                    </td>
+                    <td
                       role="cell"
                       className={`${
                         i % 2 === 0 ? "bg-(--secondary-color_t2)" : ""
@@ -108,10 +108,10 @@ const InvestmentData: React.FC<Props> = ({ investmentResults }) => {
                         entry.investmentTotal,
                         investmentResults.currency
                       )}
-                    </div>
-                  </div>
+                    </td>
+                  </tr>
                 ))}
-              </div>
+              </tbody>
             </div>
           </div>
         </>
