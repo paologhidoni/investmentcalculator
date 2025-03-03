@@ -74,7 +74,7 @@ const InvestmentChart = forwardRef<HTMLElement, Props>(
           </div>
         ) : (
           <>
-            <Heading>Investment Chart</Heading>
+            <Heading id="investment-chart-heading">Investment Chart</Heading>
             <FinalResults investmentResults={investmentResults} />
             <ResponsiveContainer width="100%" height={400}>
               <LineChart data={chartData}>
