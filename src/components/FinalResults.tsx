@@ -9,18 +9,64 @@ interface Props {
 const FinalResults: React.FC<Props> = ({ investmentResults }) => {
   return (
     <div className="grid grid-cols-3 text-center mb-2 md:mb-3 bg-(--primary-color) px-1 py-3 border-x-4 border-(--secondary-color) rounded-b-sm font-bold">
-      <h2 className="mb-1 text-sm md:text-base">Tot contributions</h2>
-      <h2 className="mb-1 text-sm md:text-base">Tot interest</h2>
-      <h2 className="mb-1 text-sm md:text-base">Final value</h2>
+      {/* Tot contributions */}
+      <div
+        aria-label={`Total investment contributions: ${investmentResults?.totalContributions}`}
+      >
+        <h2
+          className="mb-1 text-sm md:text-base"
+          aria-hidden={true}
+          tabIndex={-1}
+        >
+          Tot contributions
+        </h2>
+        <span
+          className="text-[0.9rem] md:text-base italic"
+          aria-hidden={true}
+          tabIndex={-1}
+        >
+          {investmentResults?.totalContributions}
+        </span>
+      </div>
 
-      <div className="text-[0.9rem] md:text-base italic">
-        {investmentResults?.totalContributions}
+      {/* Tot interest */}
+      <div
+        aria-label={`Total investment interest: ${investmentResults?.totalReturns}`}
+      >
+        <h2
+          className="mb-1 text-sm md:text-base"
+          aria-hidden={true}
+          tabIndex={-1}
+        >
+          Tot interest
+        </h2>
+        <span
+          className="text-[0.9rem] md:text-base italic"
+          aria-hidden={true}
+          tabIndex={-1}
+        >
+          {investmentResults?.totalReturns}
+        </span>
       </div>
-      <div className="text-[0.9rem] md:text-base italic">
-        {investmentResults?.totalReturns}
-      </div>
-      <div className="text-[0.9rem] md:text-base italic">
-        {investmentResults?.finalInvestmentValue}
+
+      {/* Final value */}
+      <div
+        aria-label={`Final investment value: ${investmentResults?.finalInvestmentValue}`}
+      >
+        <h2
+          className="mb-1 text-sm md:text-base"
+          aria-hidden={true}
+          tabIndex={-1}
+        >
+          Final value
+        </h2>
+        <span
+          className="text-[0.9rem] md:text-base italic"
+          aria-hidden={true}
+          tabIndex={-1}
+        >
+          {investmentResults?.finalInvestmentValue}
+        </span>
       </div>
     </div>
   );
