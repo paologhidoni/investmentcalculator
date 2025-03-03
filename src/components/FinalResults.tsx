@@ -14,7 +14,7 @@ const FinalResults: React.FC<Props> = ({ investmentResults }) => {
         aria-label={`Total investment contributions: ${investmentResults?.totalContributions}`}
       >
         <h2
-          className="mb-1 text-sm md:text-base"
+          className="mb-0.5 text-sm md:text-base"
           aria-hidden={true}
           tabIndex={-1}
         >
@@ -34,7 +34,7 @@ const FinalResults: React.FC<Props> = ({ investmentResults }) => {
         aria-label={`Total investment interest: ${investmentResults?.totalReturns}`}
       >
         <h2
-          className="mb-1 text-sm md:text-base"
+          className="mb-0.5 text-sm md:text-base"
           aria-hidden={true}
           tabIndex={-1}
         >
@@ -54,7 +54,7 @@ const FinalResults: React.FC<Props> = ({ investmentResults }) => {
         aria-label={`Final investment value: ${investmentResults?.finalInvestmentValue}`}
       >
         <h2
-          className="mb-1 text-sm md:text-base"
+          className="mb-0.5 text-sm md:text-base"
           aria-hidden={true}
           tabIndex={-1}
         >
