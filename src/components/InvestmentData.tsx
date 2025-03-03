@@ -25,57 +25,93 @@ const InvestmentData: React.FC<Props> = ({ investmentResults }) => {
 
       {investmentResults && investmentResults.yearsProjection.length > 0 && (
         <>
-          <Heading>Investment Breakdown</Heading>
+          <Heading id="investment-breakdown-heading">
+            Investment Breakdown
+          </Heading>
           <FinalResults investmentResults={investmentResults} />
 
           <div>
-            {/* Single Grid for Header + Data */}
-            <div className="grid bg-(--secondary-color) text-white px-1 py-4 rounded-sm grid-cols-[60px_auto_auto_auto] gap-1.5 text-center text-xs lg:text-base">
+            {/* TABLE */}
+            <div
+              role="table"
+              className="bg-(--secondary-color) text-white px-1 py-4 rounded-sm text-center text-xs lg:text-base space-y-1.5"
+              aria-labelledby="investment-breakdown-heading"
+            >
               {/* Header Row */}
-              <h3 className="font-bold">Year</h3>
-              <h3 className="font-bold">Contribution</h3>
-              <h3 className="font-bold">Interest</h3>
-              <h3 className="font-bold">Investment Value</h3>
+              <div role="rowgroup">
+                <div
+                  role="row"
+                  className="grid grid-cols-[0.3fr_0.7fr_1.5fr_1.5fr] md:grid-cols-[60px_1fr_1fr_1fr] gap-x-1.5 gap-y-1.5"
+                >
+                  <h3 className="font-bold" role="columnheader">
+                    Year
+                  </h3>
+                  <h3 className="font-bold" role="columnheader">
+                    Contribution
+                  </h3>
+                  <h3 className="font-bold" role="columnheader">
+                    Interest
+                  </h3>
+                  <h3 className="font-bold" role="columnheader">
+                    Investment Value
+                  </h3>
+                </div>
+              </div>
 
               {/* Data Rows */}
-              {investmentResults.yearsProjection.map((entry, i) => (
-                <React.Fragment key={entry.id}>
+              <div role="rowgroup">
+                {investmentResults.yearsProjection.map((entry, i) => (
                   <div
-                    className={`font-medium italic ${
-                      i % 2 === 0 ? "bg-(--secondary-color_t2)" : ""
+                    role="row"
+                    key={entry.id}
+                    className={`grid grid-cols-[0.3fr_0.7fr_1.5fr_1.5fr] md:grid-cols-[60px_1fr_1fr_1fr] gap-x-1.5 mb-1.5 ${
+                      i % 2 === 0 ? "bg-[--secondary-color_t2]" : ""
                     }`}
                   >
-                    {entry.year}
+                    <div
+                      role="rowheader"
+                      className={`font-medium italic ${
+                        i % 2 === 0 ? "bg-(--secondary-color_t2)" : ""
+                      }`}
+                    >
+                      {entry.year}
+                    </div>
+                    <div
+                      role="cell"
+                      className={`${
+                        i % 2 === 0 ? "bg-(--secondary-color_t2)" : ""
+                      }`}
+                    >
+                      {formatCurrency(
+                        entry.yearlyInvestment,
+                        investmentResults.currency
+                      )}
+                    </div>
+                    <div
+                      role="cell"
+                      className={`${
+                        i % 2 === 0 ? "bg-(--secondary-color_t2)" : ""
+                      }`}
+                    >
+                      {formatCurrency(
+                        entry.interest,
+                        investmentResults.currency
+                      )}
+                    </div>
+                    <div
+                      role="cell"
+                      className={`${
+                        i % 2 === 0 ? "bg-(--secondary-color_t2)" : ""
+                      }`}
+                    >
+                      {formatCurrency(
+                        entry.investmentTotal,
+                        investmentResults.currency
+                      )}
+                    </div>
                   </div>
-                  <div
-                    className={`${
-                      i % 2 === 0 ? "bg-(--secondary-color_t2)" : ""
-                    }`}
-                  >
-                    {formatCurrency(
-                      entry.yearlyInvestment,
-                      investmentResults.currency
-                    )}
-                  </div>
-                  <div
-                    className={`${
-                      i % 2 === 0 ? "bg-(--secondary-color_t2)" : ""
-                    }`}
-                  >
-                    {formatCurrency(entry.interest, investmentResults.currency)}
-                  </div>
-                  <div
-                    className={`${
-                      i % 2 === 0 ? "bg-(--secondary-color_t2)" : ""
-                    }`}
-                  >
-                    {formatCurrency(
-                      entry.investmentTotal,
-                      investmentResults.currency
-                    )}
-                  </div>
-                </React.Fragment>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </>

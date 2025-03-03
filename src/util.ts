@@ -67,10 +67,15 @@ export const calculateInvestmentResults = (
     investmentTotal += interestEarnedInYear + parsedAnnualInvestment;
     totalReturns += interestEarnedInYear;
 
+    const annualContribution =
+      year === 0
+        ? parsedAnnualInvestment + parsedInitialInvestment
+        : parsedAnnualInvestment;
+
     yearlyProjections.push({
       id: uuidv4(),
       year: year + 1,
-      yearlyInvestment: parsedAnnualInvestment,
+      yearlyInvestment: annualContribution,
       interest: interestEarnedInYear,
       investmentTotal,
     });
