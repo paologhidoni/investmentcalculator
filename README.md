@@ -75,13 +75,13 @@ The **Interest** is calculated based on the total investment at the beginning of
 
 Below is an example of how the investment projection is calculated and displayed:
 
-| Year | Contribution        | Interest            | Investment Value                                |
-| ---- | ------------------- | ------------------- | ----------------------------------------------- |
-| 1    | Annual Contribution | Calculated Interest | Initial Investment + Contribution + Interest    |
-| 2    | Annual Contribution | Calculated Interest | Previous Year’s Value + Contribution + Interest |
-| 3    | Annual Contribution | Calculated Interest | Previous Year’s Value + Contribution + Interest |
-| 4    | Annual Contribution | Calculated Interest | Previous Year’s Value + Contribution + Interest |
-| 5    | Annual Contribution | Calculated Interest | Previous Year’s Value + Contribution + Interest |
+| Year | Contribution                             | Interest            | Investment Value                                |
+| ---- | ---------------------------------------- | ------------------- | ----------------------------------------------- |
+| 1    | Initial Investment + Annual Contribution | Calculated Interest | Initial Investment + Contribution + Interest    |
+| 2    | Annual Contribution                      | Calculated Interest | Previous Year’s Value + Contribution + Interest |
+| 3    | Annual Contribution                      | Calculated Interest | Previous Year’s Value + Contribution + Interest |
+| 4    | Annual Contribution                      | Calculated Interest | Previous Year’s Value + Contribution + Interest |
+| 5    | Annual Contribution                      | Calculated Interest | Previous Year’s Value + Contribution + Interest |
 
 ### Explanation of Columns:
 
