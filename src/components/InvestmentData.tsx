@@ -41,7 +41,7 @@ const InvestmentData: React.FC<Props> = ({ investmentResults }) => {
               <div role="rowgroup">
                 <div
                   role="row"
-                  className="grid grid-cols-[60px_1fr_1fr_1fr] gap-x-1.5 gap-y-1.5"
+                  className="grid grid-cols-[0.3fr_0.7fr_1.5fr_1.5fr] md:grid-cols-[60px_1fr_1fr_1fr] gap-x-1.5 gap-y-1.5"
                 >
                   <h3 className="font-bold" role="columnheader">
                     Year
@@ -64,7 +64,7 @@ const InvestmentData: React.FC<Props> = ({ investmentResults }) => {
                   <div
                     role="row"
                     key={entry.id}
-                    className={`grid grid-cols-[60px_1fr_1fr_1fr] gap-x-1.5 mb-1.5 ${
+                    className={`grid grid-cols-[0.3fr_0.7fr_1.5fr_1.5fr] md:grid-cols-[60px_1fr_1fr_1fr] gap-x-1.5 mb-1.5 ${
                       i % 2 === 0 ? "bg-[--secondary-color_t2]" : ""
                     }`}
                   >
