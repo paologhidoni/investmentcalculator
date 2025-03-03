@@ -32,9 +32,9 @@ const InvestmentData: React.FC<Props> = ({ investmentResults }) => {
 
           <div>
             {/* TABLE */}
-            <div
+            <table
               role="table"
-              className="bg-(--secondary-color) text-white px-1 py-4 rounded-sm text-center text-xs lg:text-base space-y-1.5"
+              className="block bg-(--secondary-color) text-white px-1 py-4 rounded-sm text-center text-xs lg:text-base space-y-1.5"
               aria-labelledby="investment-breakdown-heading"
             >
               {/* Header Row */}
@@ -112,7 +112,7 @@ const InvestmentData: React.FC<Props> = ({ investmentResults }) => {
                   </tr>
                 ))}
               </tbody>
-            </div>
+            </table>
           </div>
         </>
       )}
